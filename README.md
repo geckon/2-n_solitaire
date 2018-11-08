@@ -1,1 +1,1 @@
-# 2-n_solitaire
+# 2^n Solitaire
