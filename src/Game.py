@@ -10,12 +10,14 @@ class Game:
         pygame.font.init()
         self.font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf', 18)
         self.cards = (
-            [16,],
-            [8, 4,],
-            [256, 128, 32, 2],
-            [32,]
+            [],
+            [],
+            [],
+            []
         )
         self.generate_next_cards(just_one=False)
+        self.clock = pygame.time.Clock()
+
 
 
     def generate_next_cards(self, just_one=True):
@@ -103,25 +105,45 @@ class Game:
         pygame.display.update()
 
 
-
-
     def add_next_to_col(self, col):
         """Add a next card to the specified column.
 
-        If it's possible, add it, generate a new next next card and
-        return True, otherwise return False."""
-        if len(self.cards[col]) >= CONF['game']['max_cards']:
+        If it's possible, add it, squash the column, generate a new
+        next next card and return True, otherwise return False.
+        A card can be added to a column if the column is not full
+        (i.e. there is less than max_cards) or if the last card in the
+        column has the same value as the next card in which case it will
+        be squashed next and the max_cards constraint is not violated.
+        Squashing a column means merging any subsequent cards of
+        the same value to one with the value doubled.
+        This method will re-draw the screen (every time a card couple is
+        merged plus once for the added card).
+        """
+        if (len(self.cards[col]) >= CONF['game']['max_cards'] and
+            self.cards[col][-1] != self.next_cards[0]):
+           # the card can't be added to this column
             return False
 
+        # add the card
         self.cards[col].append(self.next_cards[0])
+        self.clock.tick(2)
+        self.draw_screen()
+
+        # squash as many couples as possible (going from the end)
+        while (len(self.cards[col]) > 1):
+            if self.cards[col][-1] == self.cards[col][-2]:
+                del self.cards[col][-1]
+                self.cards[col][-1] *= 2
+                self.clock.tick(4)
+                self.draw_screen()
+            else:
+                break
+
         self.generate_next_cards(just_one=True)
         return True
 
 
-
-
     def loop(self):
-        clock = pygame.time.Clock()
         self.draw_screen()
 
         while True:
@@ -155,4 +177,4 @@ class Game:
                     print(f'Unsupported event: {event}')
 
         pygame.display.update()
-        clock.tick(CONF['game']['fps'])
+        self.clock.tick(CONF['game']['fps'])
