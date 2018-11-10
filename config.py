@@ -6,6 +6,7 @@ CONF = {
         'border_size': 20,
         'fps': 30,
         'card_columns': 4,
+        'max_cards': 5,     # in a column
     },
     'colors': {
         'white': (255, 255, 255),
