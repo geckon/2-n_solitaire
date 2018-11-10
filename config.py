@@ -3,7 +3,7 @@ CONF = {
         'caption': '2^n Solitaire',
         'height': 500,
         'width': 500,
-        'frame_size': 20,
+        'border_size': 20,
         'fps': 30,
         'card_columns': 4,
     },

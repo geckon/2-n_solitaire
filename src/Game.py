@@ -5,62 +5,65 @@ from config import CONF
 class Game:
     def __init__(self, display):
         self.display = display
-
-        # draw frame
-        self.display.fill(CONF['colors']['white'])
-        pygame.draw.rect(self.display,
-                         CONF['colors']['black'],
-                         [CONF['game']['frame_size'],
-                          CONF['game']['frame_size'],
-                          CONF['game']['height'] - 2 * CONF['game']['frame_size'],
-                          CONF['game']['width'] - 2 * CONF['game']['frame_size']])
-
-        # draw captions
-        self.score = 0
         pygame.font.init()
         self.font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf', 18)
-        score_text = f'Score: {self.score}'
-        score = self.font.render(score_text, True, CONF['colors']['black'])
-        next_cards = self.font.render('Next cards:', True, CONF['colors']['black'])
-        next_cards_rect = next_cards.get_rect(
-            center=(
-                CONF['game']['width'] / 2,
-                CONF['game']['height'] - CONF['game']['frame_size'] / 2
-            )
-        )
-        score_rect = score.get_rect(
-            center=(
-                CONF['game']['width'] / 2,
-                CONF['game']['frame_size'] / 2
-            )
-        )
-        self.display.blit(score, score_rect)
-        self.display.blit(next_cards, next_cards_rect)
-
-        # draw columns
-        cards = (
+        self.cards = (
             (16,),
             (8, 4,),
             (256, 128, 32, 2),
             (32,)
         )
 
+
+    def draw_border(self):
+        self.display.fill(CONF['colors']['white'])
+        pygame.draw.rect(self.display,
+                         CONF['colors']['black'],
+                         [CONF['game']['border_size'],
+                          CONF['game']['border_size'],
+                          CONF['game']['height'] - 2 * CONF['game']['border_size'],
+                          CONF['game']['width'] - 2 * CONF['game']['border_size']])
+        self.draw_captions();
+
+
+    def draw_captions(self):
+        self.score = 0
+        score_text = f'Score: {self.score}'
+        score = self.font.render(score_text, True, CONF['colors']['black'])
+        next_cards = self.font.render('Next cards:', True, CONF['colors']['black'])
+        next_cards_rect = next_cards.get_rect(
+            center=(
+                CONF['game']['width'] / 2,
+                CONF['game']['height'] - CONF['game']['border_size'] / 2
+            )
+        )
+        score_rect = score.get_rect(
+            center=(
+                CONF['game']['width'] / 2,
+                CONF['game']['border_size'] / 2
+            )
+        )
+        self.display.blit(score, score_rect)
+        self.display.blit(next_cards, next_cards_rect)
+
+
+    def draw_columns(self):
         space = 3
-        inner_width = CONF['game']['width'] - 2 * CONF['game']['frame_size']
+        inner_width = CONF['game']['width'] - 2 * CONF['game']['border_size']
         col_width = (inner_width - space * (CONF['game']['card_columns'] + 1)) / CONF['game']['card_columns']
         card_width = col_width - 2 * space
         card_height = 50
         for col_index in range(CONF['game']['card_columns']):
             col = pygame.draw.rect(self.display,
                                    CONF['colors']['green'],
-                                   [CONF['game']['frame_size'] + space + col_index * (col_width + space),
-                                    CONF['game']['frame_size'] + space,
+                                   [CONF['game']['border_size'] + space + col_index * (col_width + space),
+                                    CONF['game']['border_size'] + space,
                                     col_width,
-                                    CONF['game']['height'] - 2 * (CONF['game']['frame_size'] + space)])
+                                    CONF['game']['height'] - 2 * (CONF['game']['border_size'] + space)])
             print(f'Column: {col} ... left {col.left}, top {col.top}')
 
             # draw cards in column
-            for card_index, card in enumerate(cards[col_index]):
+            for card_index, card in enumerate(self.cards[col_index]):
                 card_rect = pygame.draw.rect(self.display,
                                              CONF['colors']['blue'],
                                              [col.left + space,
@@ -82,22 +85,18 @@ class Game:
                 self.display.blit(card_capt, card_capt_rect)
 
 
-
-
-
+    def draw_screen(self):
+        self.draw_border()
+        self.draw_columns()
         pygame.display.update()
-
-
-
 
 
     def loop(self):
         clock = pygame.time.Clock()
-
-
-
+        self.draw_screen()
 
         while True:
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
