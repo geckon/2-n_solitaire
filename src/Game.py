@@ -57,7 +57,7 @@ class Game:
                                     CONF['game']['frame_size'] + space,
                                     col_width,
                                     CONF['game']['height'] - 2 * (CONF['game']['frame_size'] + space)])
-            print(f'Column: {col}')
+            print(f'Column: {col} ... left {col.left}, top {col.top}')
 
             # draw cards in column
             for card_index, card in enumerate(cards[col_index]):
@@ -68,16 +68,17 @@ class Game:
                                               card_width,
                                               card_height])
                 card_text = f'{card}'
-                card_capt = self.font.render(card_text, True, CONF['colors']['black'])
+                card_capt = self.font.render(card_text, True, CONF['colors']['white'])
                 card_capt_rect = card_capt.get_rect(
                     center=(
-                        (col.right - col.left) / 2,
-                        (card_rect.bottom - card_rect.top) / 2
+                        card_rect.left + card_width / 2,
+                        card_rect.top + card_height / 2
                     )
                 )
 
-                print(f'Card: {card_rect}')
-                print(f'Card caption: {card_capt_rect}')
+                print(f' Card: {card_rect} ... L {card_rect.left}, T {card_rect.top}, B {card_rect.bottom}, R {card_rect.right} ')
+                print(f'  Card caption: {card_capt_rect} ... L {card_capt_rect.left}, T {card_capt_rect.top}, B {card_capt_rect.bottom}, R {card_capt_rect.right}')
+                print(f'  Card caption center: {(card_rect.right - card_rect.left) / 2}, {(card_rect.bottom - card_rect.top) / 2}')
                 self.display.blit(card_capt, card_capt_rect)
 
 
