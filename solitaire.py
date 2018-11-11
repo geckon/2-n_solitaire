@@ -3,6 +3,7 @@ import pygame
 from config import CONF
 from src.Game import Game
 
+
 def main():
     display = pygame.display.set_mode((CONF['game']['width'],
                                        CONF['game']['height']))
