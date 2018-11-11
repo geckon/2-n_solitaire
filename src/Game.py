@@ -9,22 +9,23 @@ class Game:
         self.display = display
         pygame.font.init()
         self.font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf', 18)
-        self.cards = (
-            [],
-            [],
-            [],
-            []
-        )
+        self.state = []
+        for i in range(CONF['game']['card_columns']):
+            self.state.append([])
         self.generate_next_cards(just_one=False)
         self.clock = pygame.time.Clock()
+        self.score = 0
 
+
+    def get_random_card(self):
+        return 2 ** random.randint(1,6)
 
 
     def generate_next_cards(self, just_one=True):
         if just_one:
-            self.next_cards = (self.next_cards[1], 2 ** random.randint(1,7))
+            self.next_cards = (self.next_cards[1], self.get_random_card())
         else:
-            self.next_cards = (2 ** random.randint(1,7), 2 ** random.randint(1,7))
+            self.next_cards = (self.get_random_card(), self.get_random_card())
         return self.next_cards
 
 
@@ -40,7 +41,6 @@ class Game:
 
 
     def draw_captions(self):
-        self.score = 0
         score_text = f'Score: {self.score}'
         score = self.font.render(score_text, True, CONF['colors']['black'])
         next_cards_text = f'Next cards: {self.next_cards[0]}, {self.next_cards[1]}'
@@ -77,7 +77,7 @@ class Game:
             print(f'Column: {col} ... left {col.left}, top {col.top}')
 
             # draw cards in column
-            for card_index, card in enumerate(self.cards[col_index]):
+            for card_index, card in enumerate(self.state[col_index]):
                 card_rect = pygame.draw.rect(self.display,
                                              CONF['colors']['blue'],
                                              [col.left + space,
@@ -93,8 +93,8 @@ class Game:
                     )
                 )
 
-                print(f' Card: {card_rect} ... L {card_rect.left}, T {card_rect.top}, B {card_rect.bottom}, R {card_rect.right} ')
-                print(f'  Card caption: {card_capt_rect} ... L {card_capt_rect.left}, T {card_capt_rect.top}, B {card_capt_rect.bottom}, R {card_capt_rect.right}')
+                print(f' Card: {card_rect}')
+                print(f'  Card caption: {card_capt_rect}')
                 print(f'  Card caption center: {(card_rect.right - card_rect.left) / 2}, {(card_rect.bottom - card_rect.top) / 2}')
                 self.display.blit(card_capt, card_capt_rect)
 
@@ -119,22 +119,23 @@ class Game:
         This method will re-draw the screen (every time a card couple is
         merged plus once for the added card).
         """
-        if (len(self.cards[col]) >= CONF['game']['max_cards'] and
-            self.cards[col][-1] != self.next_cards[0]):
+        if (len(self.state[col]) >= CONF['game']['max_cards'] and
+            self.state[col][-1] != self.next_cards[0]):
            # the card can't be added to this column
             return False
 
         # add the card
-        self.cards[col].append(self.next_cards[0])
-        self.clock.tick(2)
+        self.state[col].append(self.next_cards[0])
+        self.clock.tick(CONF['game']['fps'])
         self.draw_screen()
 
         # squash as many couples as possible (going from the end)
-        while (len(self.cards[col]) > 1):
-            if self.cards[col][-1] == self.cards[col][-2]:
-                del self.cards[col][-1]
-                self.cards[col][-1] *= 2
-                self.clock.tick(4)
+        while (len(self.state[col]) > 1):
+            if self.state[col][-1] == self.state[col][-2]:
+                del self.state[col][-1]
+                self.score += self.state[col][-1]
+                self.state[col][-1] *= 2
+                self.clock.tick(CONF['game']['fps'])
                 self.draw_screen()
             else:
                 break
@@ -176,5 +177,4 @@ class Game:
                 else:
                     print(f'Unsupported event: {event}')
 
-        pygame.display.update()
         self.clock.tick(CONF['game']['fps'])
