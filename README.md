@@ -8,6 +8,8 @@
 
 ```
 
+[![Updates](https://pyup.io/repos/github/geckon/2-n_solitaire/shield.svg)](https://pyup.io/repos/github/geckon/2-n_solitaire/)
+
 2<sup>n</sup> Solitaire is a simple game inspired by 2048 Solitaire (but more
 generic) which is inspired by 2048 (but instead of tiles in a grid you collect
 cards here). I find the game fun and satisfying and thus I decided to try and
