@@ -156,33 +156,33 @@ class Game:
         self.draw_screen()
 
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_1:
-                        print('Key 1 pressed.')
-                        if not self.add_next_to_col(0):
-                            continue
-                        self.draw_screen()
-                    elif event.key == pygame.K_2:
-                        print('Key 2 pressed.')
-                        if not self.add_next_to_col(1):
-                            continue
-                        self.draw_screen()
-                    elif event.key == pygame.K_3:
-                        print('Key 3 pressed.')
-                        if not self.add_next_to_col(2):
-                            continue
-                        self.draw_screen()
-                    elif event.key == pygame.K_4:
-                        print('Key 4 pressed.')
-                        if not self.add_next_to_col(3):
-                            continue
-                        self.draw_screen()
-                    else:
-                        print(f'Unsupported key: {event.key}')
+            event = pygame.event.wait()
+            if event.type == pygame.QUIT:
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    print('Key 1 pressed.')
+                    if not self.add_next_to_col(0):
+                        continue
+                    self.draw_screen()
+                elif event.key == pygame.K_2:
+                    print('Key 2 pressed.')
+                    if not self.add_next_to_col(1):
+                        continue
+                    self.draw_screen()
+                elif event.key == pygame.K_3:
+                    print('Key 3 pressed.')
+                    if not self.add_next_to_col(2):
+                        continue
+                    self.draw_screen()
+                elif event.key == pygame.K_4:
+                    print('Key 4 pressed.')
+                    if not self.add_next_to_col(3):
+                        continue
+                    self.draw_screen()
                 else:
-                    print(f'Unsupported event: {event}')
+                    print(f'Unsupported key: {event.key}')
+            else:
+                print(f'Unsupported event: {event}')
 
         self.clock.tick(CONF['game']['fps'])
