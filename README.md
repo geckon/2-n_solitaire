@@ -48,6 +48,7 @@ I guess?
 - Limited discarding *next cards*?
 - Saving game state on exit?
 - Better *graphics*?
+- Mouse support?
 
 See/add issues if interested in anything particular.
 
