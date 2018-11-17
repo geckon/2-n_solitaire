@@ -12,20 +12,17 @@ class Game:
         self.font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf',
                                      18)
         self.state = []
-        for i in range(CONF['game']['card_columns']):
+        for _ in range(CONF['game']['card_columns']):
             self.state.append([])
         self.generate_next_cards(just_one=False)
         self.clock = pygame.time.Clock()
         self.score = 0
 
-    def get_random_card(self):
-        return 2 ** random.randint(1, 6)
-
     def generate_next_cards(self, just_one=True):
         if just_one:
-            self.next_cards = (self.next_cards[1], self.get_random_card())
+            self.next_cards = (self.next_cards[1], get_random_card())
         else:
-            self.next_cards = (self.get_random_card(), self.get_random_card())
+            self.next_cards = (get_random_card(), get_random_card())
         return self.next_cards
 
     def draw_border(self):
@@ -186,3 +183,7 @@ class Game:
                 print(f'Unsupported event: {event}')
 
         self.clock.tick(CONF['game']['fps'])
+
+def get_random_card():
+    return 2 ** random.randint(1, 6)
+
