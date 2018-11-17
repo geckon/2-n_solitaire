@@ -41,15 +41,15 @@ I guess?
 
 ### Future plans
 
-- Game over (Oh yeah, the game will yell at you at some point)
-- Cards with a value high enough will disappear
-- High score recording
-- Special cards?
-- Limited swapping *next cards*?
-- Limited discarding *next cards*?
-- Saving game state on exit?
-- Better *graphics*?
-- Mouse support?
+-   Game over (Oh yeah, the game will yell at you at some point)
+-   Cards with a value high enough will disappear
+-   High score recording
+-   Special cards?
+-   Limited swapping *next cards*?
+-   Limited discarding *next cards*?
+-   Saving game state on exit?
+-   Better *graphics*?
+-   Mouse support?
 
 See/add issues if interested in anything particular.
 
