@@ -1,4 +1,4 @@
-```
+<pre>
   ___  _ __     _____       _ _ _        _
  |__ \| '_ \   / ____|     | (_) |      (_)
     ) |_| |_| | (___   ___ | |_| |_ __ _ _ _ __ ___
@@ -6,7 +6,7 @@
   / /_         ____) | (_) | | | || (_| | | | |  __/
  |____|       |_____/ \___/|_|_|\__\__,_|_|_|  \___|
 
-```
+</pre>
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/37d712df43e44d6487bb35e015c27c47)](https://app.codacy.com/app/geckon/2-n_solitaire?utm_source=github.com&utm_medium=referral&utm_content=geckon/2-n_solitaire&utm_campaign=Badge_Grade_Dashboard)
 [![Updates](https://pyup.io/repos/github/geckon/2-n_solitaire/shield.svg)](https://pyup.io/repos/github/geckon/2-n_solitaire/)
@@ -52,4 +52,3 @@ I guess?
 -   Mouse support?
 
 See/add issues if interested in anything particular.
-
