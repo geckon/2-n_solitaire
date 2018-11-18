@@ -26,7 +26,7 @@ The game ends once all the columns are full and so no more cards can be played.
 
 ![Screenshot](docs/screenshot.png)
 
-This is how the game looks like. At the top you can see your current score,
+This is what the game looks like. At the top you can see your current score,
 below that is the main board where the cards are stacked. In the bottom part you
 can see two next cards that will come to the game. You can use `1`, `2`, `3` and
 `4` keys to place the next upcoming card to the respective column. That's it.
@@ -34,15 +34,10 @@ Simple, eh?
 
 ### Current state
 
-The game works but doesn't do anything fancy yet. In fact it doesn't even end
-unless you quit and once you fill all columns with cards you can just watch
-the game board until you get bored and quit the game yourself. On the other hand
-it won't yell at you that the game is over which can be considered a plus?
-I guess?
+The game works but doesn't do anything fancy or look fancy yet.
 
 ### Future plans
 
--   Game over (Oh yeah, the game will yell at you at some point)
 -   High score recording
 -   Special cards?
 -   Limited swapping *next cards*?

@@ -107,10 +107,68 @@ class Game:
                 logging.debug(f'  Card caption: {card_capt_rect}')
                 self.display.blit(card_capt, card_capt_rect)
 
-    def draw_screen(self):
+    def draw_board(self):
         self.draw_border()
         self.draw_columns()
         pygame.display.update()
+
+    def game_over(self):
+        """Game over.
+
+        Display score and wait until user closes the game, then exit.
+        This method does not return.
+        """
+        logging.info('GAME OVER')
+
+        self.display.fill(CONF['colors']['black'])
+
+        font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf', 36)
+
+        go_text = 'GAME OVER'
+        go = font.render(go_text, True, CONF['colors']['white'])
+        go_rect = go.get_rect(
+            center=(
+                CONF['game']['width'] / 2,
+                CONF['game']['height'] * 0.25
+            )
+        )
+        self.display.blit(go, go_rect)
+
+        score_text = f'Score: {self.score}'
+        score = font.render(score_text, True, CONF['colors']['white'])
+        score_rect = score.get_rect(
+            center=(
+                CONF['game']['width'] / 2,
+                CONF['game']['height'] * 0.75
+            )
+        )
+        self.display.blit(score, score_rect)
+
+        pygame.display.update()
+
+        while True:
+            event = pygame.event.wait()
+            if event.type == pygame.QUIT:
+                exit()
+
+    def check_game_over(self):
+        """Check whether the game is over.
+
+        If all the columns are full and the next upcoming card can't be
+        placed on top of any of them (and merge with the current card
+        on top), display the game over screen. Otherwise return False.
+        """
+        for col in self.state:
+            if len(col) < CONF['game']['max_cards']:
+                # any card can still be added
+                return False
+
+            if col[-1] == self.next_cards[0]:
+                # the upcoming card can be added
+                return False
+
+        # all columns are full and not even the upcoming card can be added
+        self.game_over()
 
     def squash_column(self, col):
         """ Consolidate the column.
@@ -126,7 +184,7 @@ class Game:
                 del self.state[col][-1]
                 # re-draw the screen
                 self.clock.tick(CONF['game']['fps'])
-                self.draw_screen()
+                self.draw_board()
 
             # else if the last two cards have the same value, merge them
             elif (len(self.state[col]) > 1 and
@@ -137,7 +195,7 @@ class Game:
 
                 # re-draw the screen
                 self.clock.tick(CONF['game']['fps'])
-                self.draw_screen()
+                self.draw_board()
 
             # otherwise we're done with squashing
             else:
@@ -156,7 +214,12 @@ class Game:
         the same value to one with the value doubled.
         This method will re-draw the screen (every time a card couple is
         merged plus once for the added card).
+        This method also checks whether the game is over - in such case
+        it won't return as the game_over() method will exit the game.
         """
+        logging.debug('Adding next card (%d) to column %d',
+                      self.next_cards[0], col)
+
         if (len(self.state[col]) >= CONF['game']['max_cards'] and
                 self.state[col][-1] != self.next_cards[0]):
             # the card can't be added to this column
@@ -165,15 +228,18 @@ class Game:
         # add the card
         self.state[col].append(self.next_cards[0])
         self.clock.tick(CONF['game']['fps'])
-        self.draw_screen()
+        self.draw_board()
 
         self.squash_column(col)
 
         self.generate_next_cards(just_one=True)
+
+        self.check_game_over()
+
         return True
 
     def loop(self):
-        self.draw_screen()
+        self.draw_board()
 
         while True:
             event = pygame.event.wait()
@@ -184,22 +250,22 @@ class Game:
                     logging.debug('Key 1 pressed.')
                     if not self.add_next_to_col(0):
                         continue
-                    self.draw_screen()
+                    self.draw_board()
                 elif event.key == pygame.K_2:
                     logging.debug('Key 2 pressed.')
                     if not self.add_next_to_col(1):
                         continue
-                    self.draw_screen()
+                    self.draw_board()
                 elif event.key == pygame.K_3:
                     logging.debug('Key 3 pressed.')
                     if not self.add_next_to_col(2):
                         continue
-                    self.draw_screen()
+                    self.draw_board()
                 elif event.key == pygame.K_4:
                     logging.debug('Key 4 pressed.')
                     if not self.add_next_to_col(3):
                         continue
-                    self.draw_screen()
+                    self.draw_board()
                 else:
                     logging.debug(f'Unsupported key: {event.key}')
             else:
