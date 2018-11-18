@@ -19,6 +19,7 @@ implement it using Pygame. Here we are.
 The goal of the game is to stack an endless row of cards into limited-size
 columns. Each time you stack two cards of the same value one on the other,
 the two cards are replaced by one of double the value and your score grows.
+Cards with the maximum value (configurable, 2048 by default) will disappear.
 The game ends once all the columns are full and so no more cards can be played.
 
 ### Controls
@@ -42,7 +43,6 @@ I guess?
 ### Future plans
 
 -   Game over (Oh yeah, the game will yell at you at some point)
--   Cards with a value high enough will disappear
 -   High score recording
 -   Special cards?
 -   Limited swapping *next cards*?
