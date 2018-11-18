@@ -112,6 +112,37 @@ class Game:
         self.draw_columns()
         pygame.display.update()
 
+    def squash_column(self, col):
+        """ Consolidate the column.
+
+        Merge adjacent cards with the same value (starting from the end
+        of the column) and remove cards that reached the maximum value
+        (set in configuration).
+        """
+        while (len(self.state[col]) >= 1):
+            # if the last card reached the maximum value, remove it
+            if self.state[col][-1] == CONF['game']['max_card_value']:
+                self.score += self.state[col][-1]
+                del self.state[col][-1]
+                # re-draw the screen
+                self.clock.tick(CONF['game']['fps'])
+                self.draw_screen()
+
+            # else if the last two cards have the same value, merge them
+            elif (len(self.state[col]) > 1 and
+                  self.state[col][-1] == self.state[col][-2]):
+                self.score += self.state[col][-1]
+                del self.state[col][-1]
+                self.state[col][-1] *= 2
+
+                # re-draw the screen
+                self.clock.tick(CONF['game']['fps'])
+                self.draw_screen()
+
+            # otherwise we're done with squashing
+            else:
+                break
+
     def add_next_to_col(self, col):
         """Add a next card to the specified column.
 
@@ -136,16 +167,7 @@ class Game:
         self.clock.tick(CONF['game']['fps'])
         self.draw_screen()
 
-        # squash as many couples as possible (going from the end)
-        while (len(self.state[col]) > 1):
-            if self.state[col][-1] == self.state[col][-2]:
-                del self.state[col][-1]
-                self.score += self.state[col][-1]
-                self.state[col][-1] *= 2
-                self.clock.tick(CONF['game']['fps'])
-                self.draw_screen()
-            else:
-                break
+        self.squash_column(col)
 
         self.generate_next_cards(just_one=True)
         return True
