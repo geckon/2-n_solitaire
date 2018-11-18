@@ -1,3 +1,4 @@
+import logging
 import random
 
 import pygame
@@ -78,7 +79,7 @@ class Game:
                     CONF['game']['height'] - 2 * (border_size + space)
                 ]
             )
-            print(f'Column: {col} ... left {col.left}, top {col.top}')
+            logging.debug(f'Column: {col} ... left {col.left}, top {col.top}')
 
             # draw cards in column
             for card_index, card in enumerate(self.state[col_index]):
@@ -102,8 +103,8 @@ class Game:
                     )
                 )
 
-                print(f' Card: {card_rect}')
-                print(f'  Card caption: {card_capt_rect}')
+                logging.debug(f' Card: {card_rect}')
+                logging.debug(f'  Card caption: {card_capt_rect}')
                 self.display.blit(card_capt, card_capt_rect)
 
     def draw_screen(self):
@@ -158,29 +159,29 @@ class Game:
                 exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
-                    print('Key 1 pressed.')
+                    logging.debug('Key 1 pressed.')
                     if not self.add_next_to_col(0):
                         continue
                     self.draw_screen()
                 elif event.key == pygame.K_2:
-                    print('Key 2 pressed.')
+                    logging.debug('Key 2 pressed.')
                     if not self.add_next_to_col(1):
                         continue
                     self.draw_screen()
                 elif event.key == pygame.K_3:
-                    print('Key 3 pressed.')
+                    logging.debug('Key 3 pressed.')
                     if not self.add_next_to_col(2):
                         continue
                     self.draw_screen()
                 elif event.key == pygame.K_4:
-                    print('Key 4 pressed.')
+                    logging.debug('Key 4 pressed.')
                     if not self.add_next_to_col(3):
                         continue
                     self.draw_screen()
                 else:
-                    print(f'Unsupported key: {event.key}')
+                    logging.debug(f'Unsupported key: {event.key}')
             else:
-                print(f'Unsupported event: {event}')
+                logging.debug(f'Unsupported event: {event}')
 
         self.clock.tick(CONF['game']['fps'])
 
