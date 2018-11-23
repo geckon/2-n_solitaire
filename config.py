@@ -6,6 +6,7 @@ CONF = {
         'border_size': 20,
         'fps': 3,
         'card_columns': 4,
+        'card_height': 85,
         'max_cards': 5,     # in a column
         'max_card_value': 2048,   # then the card disappears
     },

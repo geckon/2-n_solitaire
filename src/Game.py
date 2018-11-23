@@ -67,7 +67,6 @@ class Game:
         inner_width = CONF['game']['width'] - 2 * border_size
         col_width = (inner_width - space * (columns_cnt + 1)) / columns_cnt
         card_width = col_width - 2 * space
-        card_height = 50
         for col_index in range(columns_cnt):
             col = pygame.draw.rect(
                 self.display,
@@ -88,9 +87,9 @@ class Game:
                     CONF['colors']['blue'],
                     [
                         col.left + space,
-                        col.top + space + card_index * (card_height + space),
+                        col.top + space + card_index * (CONF['game']['card_height'] + space),
                         card_width,
-                        card_height
+                        CONF['game']['card_height']
                     ]
                 )
                 card_text = f'{card}'
@@ -99,7 +98,7 @@ class Game:
                 card_capt_rect = card_capt.get_rect(
                     center=(
                         card_rect.left + card_width / 2,
-                        card_rect.top + card_height / 2
+                        card_rect.top + CONF['game']['card_height'] / 2
                     )
                 )
 
@@ -228,7 +227,11 @@ class Game:
         # add the card
         self.state[col].append(self.next_cards[0])
         self.clock.tick(CONF['game']['fps'])
-        self.draw_board()
+
+        # only re-draw before squashing if there is not the extra card
+        # that can only be added if it will be squashed immediately
+        if len(self.state[col]) <= CONF['game']['max_cards']:
+            self.draw_board()
 
         self.squash_column(col)
 
