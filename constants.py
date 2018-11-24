@@ -20,7 +20,7 @@ CONST = {
         'max_cards': 5,      # in a column
     },
     'card': {
-        'height': 85
+        'height': 85,
         'max_value': 2048,   # then the card disappears
     },
     'colors': {

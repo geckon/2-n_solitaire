@@ -87,9 +87,9 @@ class Game:
                     CONST['colors']['blue'],
                     [
                         col.left + space,
-                        col.top + space + card_index * (CONF['game']['card_height'] + space),
+                        col.top + space + card_index * (CONST['card']['height'] + space),
                         card_width,
-                        CONF['game']['card_height']
+                        CONST['card']['height']
                     ]
                 )
                 card_text = f'{card}'
@@ -98,7 +98,7 @@ class Game:
                 card_capt_rect = card_capt.get_rect(
                     center=(
                         card_rect.left + card_width / 2,
-                        card_rect.top + CONF['game']['card_height'] / 2
+                        card_rect.top + CONST['card']['height'] / 2
                     )
                 )
 
