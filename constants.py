@@ -5,7 +5,15 @@ CONST = {
         'width': 500,
         'border_size': 20,
         'fps': 3,
-
+    },
+    'font': {
+        'path': {
+            'default': './assets/Jellee-Roman/Jellee-Roman.otf',
+        },
+        'size': {
+            'normal': 18,
+            'big': 36
+        }
     },
     'column': {
         'count': 4,

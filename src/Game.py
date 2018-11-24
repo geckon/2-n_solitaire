@@ -10,8 +10,8 @@ class Game:
     def __init__(self, display):
         self.display = display
         pygame.font.init()
-        self.font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf',
-                                     18)
+        self.font = pygame.font.Font(CONST['font']['path']['default'],
+                                     CONST['font']['size']['normal'])
         self.state = []
         for _ in range(CONST['column']['count']):
             self.state.append([])
@@ -121,7 +121,8 @@ class Game:
 
         self.display.fill(CONST['colors']['black'])
 
-        font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf', 36)
+        font = pygame.font.Font(CONST['font']['path']['default'],
+                                CONST['font']['size']['big'])
 
         go_text = 'GAME OVER'
         go = font.render(go_text, True, CONST['colors']['white'])
