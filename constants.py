@@ -1,14 +1,19 @@
-CONF = {
+CONST = {
     'game': {
         'caption': '2^n Solitaire',
         'height': 500,
         'width': 500,
         'border_size': 20,
         'fps': 3,
-        'card_columns': 4,
-        'card_height': 85,
-        'max_cards': 5,     # in a column
-        'max_card_value': 2048,   # then the card disappears
+
+    },
+    'column': {
+        'count': 4,
+        'max_cards': 5,      # in a column
+    },
+    'card': {
+        'height': 85
+        'max_value': 2048,   # then the card disappears
     },
     'colors': {
         'white': (255, 255, 255),

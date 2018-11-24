@@ -3,7 +3,7 @@ import random
 
 import pygame
 
-from config import CONF
+from constants import CONST
 
 
 class Game:
@@ -13,7 +13,7 @@ class Game:
         self.font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf',
                                      18)
         self.state = []
-        for _ in range(CONF['game']['card_columns']):
+        for _ in range(CONST['column']['count']):
             self.state.append([])
         self.generate_next_cards(just_one=False)
         self.clock = pygame.time.Clock()
@@ -27,34 +27,34 @@ class Game:
         return self.next_cards
 
     def draw_border(self):
-        self.display.fill(CONF['colors']['white'])
+        self.display.fill(CONST['colors']['white'])
         pygame.draw.rect(
             self.display,
-            CONF['colors']['black'],
+            CONST['colors']['black'],
             [
-                CONF['game']['border_size'],
-                CONF['game']['border_size'],
-                CONF['game']['height'] - 2 * CONF['game']['border_size'],
-                CONF['game']['width'] - 2 * CONF['game']['border_size']
+                CONST['game']['border_size'],
+                CONST['game']['border_size'],
+                CONST['game']['height'] - 2 * CONST['game']['border_size'],
+                CONST['game']['width'] - 2 * CONST['game']['border_size']
             ]
         )
         self.draw_captions()
 
     def draw_captions(self):
         score_text = f'Score: {self.score}'
-        score = self.font.render(score_text, True, CONF['colors']['black'])
+        score = self.font.render(score_text, True, CONST['colors']['black'])
         nc_text = f'Next cards: {self.next_cards[0]}, {self.next_cards[1]}'
-        next_cards = self.font.render(nc_text, True, CONF['colors']['black'])
+        next_cards = self.font.render(nc_text, True, CONST['colors']['black'])
         next_cards_rect = next_cards.get_rect(
             center=(
-                CONF['game']['width'] / 2,
-                CONF['game']['height'] - CONF['game']['border_size'] / 2
+                CONST['game']['width'] / 2,
+                CONST['game']['height'] - CONST['game']['border_size'] / 2
             )
         )
         score_rect = score.get_rect(
             center=(
-                CONF['game']['width'] / 2,
-                CONF['game']['border_size'] / 2
+                CONST['game']['width'] / 2,
+                CONST['game']['border_size'] / 2
             )
         )
         self.display.blit(score, score_rect)
@@ -62,20 +62,20 @@ class Game:
 
     def draw_columns(self):
         space = 3
-        border_size = CONF['game']['border_size']
-        columns_cnt = CONF['game']['card_columns']
-        inner_width = CONF['game']['width'] - 2 * border_size
+        border_size = CONST['game']['border_size']
+        columns_cnt = CONST['column']['count']
+        inner_width = CONST['game']['width'] - 2 * border_size
         col_width = (inner_width - space * (columns_cnt + 1)) / columns_cnt
         card_width = col_width - 2 * space
         for col_index in range(columns_cnt):
             col = pygame.draw.rect(
                 self.display,
-                CONF['colors']['green'],
+                CONST['colors']['green'],
                 [
                     border_size + space + col_index * (col_width + space),
                     border_size + space,
                     col_width,
-                    CONF['game']['height'] - 2 * (border_size + space)
+                    CONST['game']['height'] - 2 * (border_size + space)
                 ]
             )
             logging.debug(f'Column: {col} ... left {col.left}, top {col.top}')
@@ -84,7 +84,7 @@ class Game:
             for card_index, card in enumerate(self.state[col_index]):
                 card_rect = pygame.draw.rect(
                     self.display,
-                    CONF['colors']['blue'],
+                    CONST['colors']['blue'],
                     [
                         col.left + space,
                         col.top + space + card_index * (CONF['game']['card_height'] + space),
@@ -94,7 +94,7 @@ class Game:
                 )
                 card_text = f'{card}'
                 card_capt = self.font.render(card_text, True,
-                                             CONF['colors']['white'])
+                                             CONST['colors']['white'])
                 card_capt_rect = card_capt.get_rect(
                     center=(
                         card_rect.left + card_width / 2,
@@ -119,26 +119,26 @@ class Game:
         """
         logging.info('GAME OVER')
 
-        self.display.fill(CONF['colors']['black'])
+        self.display.fill(CONST['colors']['black'])
 
         font = pygame.font.Font('./assets/Jellee-Roman/Jellee-Roman.otf', 36)
 
         go_text = 'GAME OVER'
-        go = font.render(go_text, True, CONF['colors']['white'])
+        go = font.render(go_text, True, CONST['colors']['white'])
         go_rect = go.get_rect(
             center=(
-                CONF['game']['width'] / 2,
-                CONF['game']['height'] * 0.25
+                CONST['game']['width'] / 2,
+                CONST['game']['height'] * 0.25
             )
         )
         self.display.blit(go, go_rect)
 
         score_text = f'Score: {self.score}'
-        score = font.render(score_text, True, CONF['colors']['white'])
+        score = font.render(score_text, True, CONST['colors']['white'])
         score_rect = score.get_rect(
             center=(
-                CONF['game']['width'] / 2,
-                CONF['game']['height'] * 0.75
+                CONST['game']['width'] / 2,
+                CONST['game']['height'] * 0.75
             )
         )
         self.display.blit(score, score_rect)
@@ -158,7 +158,7 @@ class Game:
         on top), display the game over screen. Otherwise return False.
         """
         for col in self.state:
-            if len(col) < CONF['game']['max_cards']:
+            if len(col) < CONST['column']['max_cards']:
                 # any card can still be added
                 return False
 
@@ -174,15 +174,15 @@ class Game:
 
         Merge adjacent cards with the same value (starting from the end
         of the column) and remove cards that reached the maximum value
-        (set in configuration).
+        (set in CONSTiguration).
         """
         while (len(self.state[col]) >= 1):
             # if the last card reached the maximum value, remove it
-            if self.state[col][-1] == CONF['game']['max_card_value']:
+            if self.state[col][-1] == CONST['card']['max_value']:
                 self.score += self.state[col][-1]
                 del self.state[col][-1]
                 # re-draw the screen
-                self.clock.tick(CONF['game']['fps'])
+                self.clock.tick(CONST['game']['fps'])
                 self.draw_board()
 
             # else if the last two cards have the same value, merge them
@@ -193,7 +193,7 @@ class Game:
                 self.state[col][-1] *= 2
 
                 # re-draw the screen
-                self.clock.tick(CONF['game']['fps'])
+                self.clock.tick(CONST['game']['fps'])
                 self.draw_board()
 
             # otherwise we're done with squashing
@@ -219,19 +219,20 @@ class Game:
         logging.debug('Adding next card (%d) to column %d',
                       self.next_cards[0], col)
 
-        if (len(self.state[col]) >= CONF['game']['max_cards'] and
+        if (len(self.state[col]) >= CONST['column']['max_cards'] and
                 self.state[col][-1] != self.next_cards[0]):
             # the card can't be added to this column
             return False
 
         # add the card
         self.state[col].append(self.next_cards[0])
-        self.clock.tick(CONF['game']['fps'])
 
         # only re-draw before squashing if there is not the extra card
         # that can only be added if it will be squashed immediately
-        if len(self.state[col]) <= CONF['game']['max_cards']:
+        if len(self.state[col]) <= CONST['column']['max_cards']:
+            self.clock.tick(CONST['game']['fps'])
             self.draw_board()
+
 
         self.squash_column(col)
 
@@ -274,7 +275,7 @@ class Game:
             else:
                 logging.debug(f'Unsupported event: {event}')
 
-        self.clock.tick(CONF['game']['fps'])
+        self.clock.tick(CONST['game']['fps'])
 
 def get_random_card():
     return 2 ** random.randint(1, 6)

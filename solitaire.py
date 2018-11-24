@@ -5,7 +5,7 @@ import logging
 import pygame
 import sys
 
-from config import CONF
+from constants import CONST
 from src.Game import Game
 
 def init_log(level=logging.WARNING):
@@ -33,9 +33,9 @@ def main():
     init_log(level=loglevel)
 
     # initialize and start the game
-    display = pygame.display.set_mode((CONF['game']['width'],
-                                       CONF['game']['height']))
-    pygame.display.set_caption(CONF['game']['caption'])
+    display = pygame.display.set_mode((CONST['game']['width'],
+                                       CONST['game']['height']))
+    pygame.display.set_caption(CONST['game']['caption'])
 
     game = Game(display)
     game.loop()
