@@ -23,7 +23,7 @@ CONST = {
         'height': 85,
         'max_value': 2048,   # then the card disappears
     },
-    'colors': {
+    'color': {
         'white': (255, 255, 255),
         'black': (0, 0, 0),
         'red': (100, 0, 0),

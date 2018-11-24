@@ -27,10 +27,10 @@ class Game:
         return self.next_cards
 
     def draw_border(self):
-        self.display.fill(CONST['colors']['white'])
+        self.display.fill(CONST['color']['white'])
         pygame.draw.rect(
             self.display,
-            CONST['colors']['black'],
+            CONST['color']['black'],
             [
                 CONST['game']['border_size'],
                 CONST['game']['border_size'],
@@ -42,9 +42,9 @@ class Game:
 
     def draw_captions(self):
         score_text = f'Score: {self.score}'
-        score = self.font.render(score_text, True, CONST['colors']['black'])
+        score = self.font.render(score_text, True, CONST['color']['black'])
         nc_text = f'Next cards: {self.next_cards[0]}, {self.next_cards[1]}'
-        next_cards = self.font.render(nc_text, True, CONST['colors']['black'])
+        next_cards = self.font.render(nc_text, True, CONST['color']['black'])
         next_cards_rect = next_cards.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -70,7 +70,7 @@ class Game:
         for col_index in range(columns_cnt):
             col = pygame.draw.rect(
                 self.display,
-                CONST['colors']['green'],
+                CONST['color']['green'],
                 [
                     border_size + space + col_index * (col_width + space),
                     border_size + space,
@@ -84,7 +84,7 @@ class Game:
             for card_index, card in enumerate(self.state[col_index]):
                 card_rect = pygame.draw.rect(
                     self.display,
-                    CONST['colors']['blue'],
+                    CONST['color']['blue'],
                     [
                         col.left + space,
                         col.top + space + card_index * (CONST['card']['height'] + space),
@@ -94,7 +94,7 @@ class Game:
                 )
                 card_text = f'{card}'
                 card_capt = self.font.render(card_text, True,
-                                             CONST['colors']['white'])
+                                             CONST['color']['white'])
                 card_capt_rect = card_capt.get_rect(
                     center=(
                         card_rect.left + card_width / 2,
@@ -119,13 +119,13 @@ class Game:
         """
         logging.info('GAME OVER')
 
-        self.display.fill(CONST['colors']['black'])
+        self.display.fill(CONST['color']['black'])
 
         font = pygame.font.Font(CONST['font']['path']['default'],
                                 CONST['font']['size']['big'])
 
         go_text = 'GAME OVER'
-        go = font.render(go_text, True, CONST['colors']['white'])
+        go = font.render(go_text, True, CONST['color']['white'])
         go_rect = go.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -135,7 +135,7 @@ class Game:
         self.display.blit(go, go_rect)
 
         score_text = f'Score: {self.score}'
-        score = font.render(score_text, True, CONST['colors']['white'])
+        score = font.render(score_text, True, CONST['color']['white'])
         score_rect = score.get_rect(
             center=(
                 CONST['game']['width'] / 2,
