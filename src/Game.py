@@ -179,8 +179,10 @@ class Game:
         (set in CONSTiguration).
         """
         while (len(self.state[col]) >= 1):
-            # if the last card reached the maximum value, remove it
-            if self.state[col][-1] >= CONF['max_card_value']:
+            # if the last card reached the maximum value
+            # (and such value exists), remove the card
+            if (CONF['max_card_value'] > 0 and
+                    self.state[col][-1] >= CONF['max_card_value']):
                 self.score += self.state[col][-1]
                 del self.state[col][-1]
                 # re-draw the screen
