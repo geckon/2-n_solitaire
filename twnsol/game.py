@@ -128,8 +128,8 @@ class Game:
                 )
             )
 
-            logging.debug(f' Card: {card_rect}')
-            logging.debug(f'  Card caption: {card_capt_rect}')
+            logging.debug(' Card: %s', card_rect)
+            logging.debug('  Card caption: %s', card_capt_rect)
             self.display.blit(card_capt, card_capt_rect)
 
     def draw_columns(self):
@@ -158,7 +158,8 @@ class Game:
                     )
                 ]
             )
-            logging.debug(f'Column: {col} ... left {col.left}, top {col.top}')
+            logging.debug('Column: %s ... left %s, top %s',
+                          col, col.left, col.top)
 
             self.draw_cards(col, col_index, col_width)
 
@@ -179,14 +180,14 @@ class Game:
                                    CONST['font']['size']['big'])
 
         go_text = 'GAME OVER'
-        go = go_font.render(go_text, True, CONST['color']['white'])
-        go_rect = go.get_rect(
+        go_capt = go_font.render(go_text, True, CONST['color']['white'])
+        go_rect = go_capt.get_rect(
             center=(
                 CONST['game']['width'] / 2,
                 CONST['game']['height'] * 0.25
             )
         )
-        self.display.blit(go, go_rect)
+        self.display.blit(go_capt, go_rect)
 
         score_text = f'Score: {self.score}'
         score = go_font.render(score_text, True, CONST['color']['white'])
@@ -234,6 +235,9 @@ class Game:
         # all columns are full and not even the upcoming card can be added
         self.game_over()
 
+        # This should never happen though, since self.game_over() exits
+        return True
+
     def squash_column(self, col):
         """ Consolidate the column.
 
@@ -241,7 +245,7 @@ class Game:
         of the column) and remove cards that reached the maximum value
         (set in CONSTiguration).
         """
-        while (len(self.state[col]) >= 1):
+        while len(self.state[col]) >= 1:
             # if the last card reached the maximum value
             # (and such value exists), remove the card
             if (CONF['max_card_value'] > 0 and
@@ -335,9 +339,9 @@ class Game:
                     if not self.add_next_to_col(3):
                         continue
                 else:
-                    logging.debug(f'Unsupported key: {event.key}')
+                    logging.debug('Unsupported key: %s', event.key)
             else:
-                logging.debug(f'Unsupported event: {event}')
+                logging.debug('Unsupported event: %s', event)
 
         self.clock.tick(CONST['game']['fps'])
 
