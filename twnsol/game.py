@@ -90,55 +90,68 @@ class Game:
         self.display.blit(score, score_rect)
         self.display.blit(next_cards, next_cards_rect)
 
+
+    def draw_cards(self, col, col_index, col_width):
+        """Draw cards in a column.
+
+        Draw cards into the specified (already drawn) column.
+
+        Arguments:
+            col (pygame.Rect): the already drawn column
+            col_index (int): column index to the self.state "table"
+            col_width (int): width of the column
+        """
+        for card_index, card in enumerate(self.state[col_index]):
+            card_width = col_width - 2 * CONST['column']['space']
+            card_rect = pygame.draw.rect(
+                self.display,
+                CONST['color']['blue'],
+                [
+                    col.left + CONST['column']['space'],
+                    col.top + CONST['column']['space'] + card_index * (CONST['card']['height'] + CONST['column']['space']),
+                    card_width,
+                    CONST['card']['height']
+                ]
+            )
+            card_text = f'{card}'
+            card_capt = self.capt_font.render(card_text, True,
+                                              CONST['color']['white'])
+            card_capt_rect = card_capt.get_rect(
+                center=(
+                    card_rect.left + card_width / 2,
+                    card_rect.top + CONST['card']['height'] / 2
+                )
+            )
+
+            logging.debug(f' Card: {card_rect}')
+            logging.debug(f'  Card caption: {card_capt_rect}')
+            self.display.blit(card_capt, card_capt_rect)
+
     def draw_columns(self):
         """Draw columns and cards.
 
         Count column width from the board width and number of columns.
         """
-        space = 3
+        CONST['column']['space'] = 3
         border_size = CONST['game']['border_size']
         columns_cnt = CONST['column']['count']
         inner_width = CONST['game']['width'] - 2 * border_size
-        col_width = (inner_width - space * (columns_cnt + 1)) / columns_cnt
-        card_width = col_width - 2 * space
+        col_width = (inner_width - CONST['column']['space'] * (columns_cnt + 1)) / columns_cnt
         for col_index in range(columns_cnt):
             col = pygame.draw.rect(
                 self.display,
                 CONST['color']['green'],
                 [
-                    border_size + space + col_index * (col_width + space),
-                    border_size + space,
+                    border_size + CONST['column']['space'] + col_index * (col_width + CONST['column']['space']),
+                    border_size + CONST['column']['space'],
                     col_width,
-                    CONST['game']['height'] - 2 * (border_size + space)
+                    CONST['game']['height'] - 2 * (border_size + CONST['column']['space'])
                 ]
             )
             logging.debug(f'Column: {col} ... left {col.left}, top {col.top}')
 
-            # draw cards in column
-            for card_index, card in enumerate(self.state[col_index]):
-                card_rect = pygame.draw.rect(
-                    self.display,
-                    CONST['color']['blue'],
-                    [
-                        col.left + space,
-                        col.top + space + card_index * (CONST['card']['height'] + space),
-                        card_width,
-                        CONST['card']['height']
-                    ]
-                )
-                card_text = f'{card}'
-                card_capt = self.capt_font.render(card_text, True,
-                                                  CONST['color']['white'])
-                card_capt_rect = card_capt.get_rect(
-                    center=(
-                        card_rect.left + card_width / 2,
-                        card_rect.top + CONST['card']['height'] / 2
-                    )
-                )
+            self.draw_cards(col, col_index, col_width)
 
-                logging.debug(f' Card: {card_rect}')
-                logging.debug(f'  Card caption: {card_capt_rect}')
-                self.display.blit(card_capt, card_capt_rect)
 
     def draw_board(self):
         """Draw border and columns including cards."""

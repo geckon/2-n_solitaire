@@ -16,6 +16,7 @@ CONST = {
         }
     },
     'column': {
+        'space': 3,          # between columns and between cards (in px)
         'count': 4,
         'max_cards': 5,      # in a column
     },
