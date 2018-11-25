@@ -21,6 +21,7 @@ def init_log(level=logging.WARNING):
 
 
 def main():
+    """Initialize and run the game."""
     # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-D', '--debug', action='store_true', dest='debug',

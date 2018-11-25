@@ -8,11 +8,27 @@ from twnsol.constants import CONST
 
 
 class Game:
+    """Represents the solitaire game as a whole.
+
+    One instance of this class should be created on game start and no
+    more should be needed. It stores the game state, draws the board,
+    keeps the clock, etc.
+
+    Attributes:
+        display (pygame.display): the window for the game
+        capt_font (pygame.font): font used for captions in the border
+        state (list of lists): state of the game (columns - card values)
+        next_cards (tuple): two ints representing the upcoming two cards
+        clock (pygame.time.Clock): clock for the game
+        score (int): current score
+
+    """
     def __init__(self, display):
+        """Initialize the game."""
         self.display = display
         pygame.font.init()
-        self.font = pygame.font.Font(CONST['font']['path']['default'],
-                                     CONST['font']['size']['normal'])
+        self.capt_font = pygame.font.Font(CONST['font']['path']['default'],
+                                          CONST['font']['size']['normal'])
         self.state = []
         for _ in range(CONST['column']['count']):
             self.state.append([])
@@ -21,6 +37,12 @@ class Game:
         self.score = 0
 
     def generate_next_cards(self, just_one=True):
+        """Generate value(s) for the upcoming card(s).
+
+        Mostly just one value is generated and then the next-next value
+        is shifted to next and next-next is generated as a new one. If
+        just_one argument is False then both values are generated anew.
+        """
         if just_one:
             self.next_cards = (self.next_cards[1], get_random_card())
         else:
@@ -28,6 +50,11 @@ class Game:
         return self.next_cards
 
     def draw_border(self):
+        """Draw the border around the game board.
+
+        Draw white board around black board and add captions for score
+        and the upcoming cards.
+        """
         self.display.fill(CONST['color']['white'])
         pygame.draw.rect(
             self.display,
@@ -42,10 +69,12 @@ class Game:
         self.draw_captions()
 
     def draw_captions(self):
+        """Draw captions for score and upcoming cards."""
         score_text = f'Score: {self.score}'
-        score = self.font.render(score_text, True, CONST['color']['black'])
+        score = self.capt_font.render(score_text, True, CONST['color']['black'])
         nc_text = f'Next cards: {self.next_cards[0]}, {self.next_cards[1]}'
-        next_cards = self.font.render(nc_text, True, CONST['color']['black'])
+        next_cards = self.capt_font.render(nc_text, True,
+                                           CONST['color']['black'])
         next_cards_rect = next_cards.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -62,6 +91,10 @@ class Game:
         self.display.blit(next_cards, next_cards_rect)
 
     def draw_columns(self):
+        """Draw columns and cards.
+
+        Count column width from the board width and number of columns.
+        """
         space = 3
         border_size = CONST['game']['border_size']
         columns_cnt = CONST['column']['count']
@@ -94,8 +127,8 @@ class Game:
                     ]
                 )
                 card_text = f'{card}'
-                card_capt = self.font.render(card_text, True,
-                                             CONST['color']['white'])
+                card_capt = self.capt_font.render(card_text, True,
+                                                  CONST['color']['white'])
                 card_capt_rect = card_capt.get_rect(
                     center=(
                         card_rect.left + card_width / 2,
@@ -108,6 +141,7 @@ class Game:
                 self.display.blit(card_capt, card_capt_rect)
 
     def draw_board(self):
+        """Draw border and columns including cards."""
         self.draw_border()
         self.draw_columns()
         pygame.display.update()
@@ -247,6 +281,11 @@ class Game:
         return True
 
     def loop(self):
+        """The main loop.
+
+        Draw the board and wait for the player's move. Evaluate it,
+        re-draw the screen and continue until the game is finished.
+        """
         self.draw_board()
 
         while True:
@@ -282,5 +321,6 @@ class Game:
         self.clock.tick(CONST['game']['fps'])
 
 def get_random_card():
+    """Generate a random card value."""
     return 2 ** random.randint(1, 6)
 
