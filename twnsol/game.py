@@ -286,9 +286,8 @@ class Game:
         Draw the board and wait for the player's move. Evaluate it,
         re-draw the screen and continue until the game is finished.
         """
-        self.draw_board()
-
         while True:
+            self.draw_board()
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
                 exit()
@@ -297,22 +296,18 @@ class Game:
                     logging.debug('Key 1 pressed.')
                     if not self.add_next_to_col(0):
                         continue
-                    self.draw_board()
                 elif event.key == pygame.K_2:
                     logging.debug('Key 2 pressed.')
                     if not self.add_next_to_col(1):
                         continue
-                    self.draw_board()
                 elif event.key == pygame.K_3:
                     logging.debug('Key 3 pressed.')
                     if not self.add_next_to_col(2):
                         continue
-                    self.draw_board()
                 elif event.key == pygame.K_4:
                     logging.debug('Key 4 pressed.')
                     if not self.add_next_to_col(3):
                         continue
-                    self.draw_board()
                 else:
                     logging.debug(f'Unsupported key: {event.key}')
             else:
