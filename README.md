@@ -40,6 +40,7 @@ the [default config file](.2-n_solitaire.conf). All options should be described
 there including default values which will be used if not specified otherwise.
 The game will search for the configuration file in the following locations
 (in this order):
+
 -   current working directory
 -   home directory
 -   directory specified by twoN_SOLITAIRE_CONF_DIR environment
