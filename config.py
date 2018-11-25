@@ -6,7 +6,7 @@ import toml
 CONF = {}
 
 def read_config_file():
-    """Find and read config file (.2-n_solitaire.toml) if exists.
+    """Find and read config file (.2-n_solitaire.conf) if exists.
 
     Config file will be looked for in these directories in this order:
     - current working directory
@@ -27,7 +27,7 @@ def read_config_file():
     for loc, loc_desc in locations:
         try:
             logging.debug('Trying %s', loc_desc)
-            cf_path = os.path.join(loc, '.2-n_solitaire.toml')
+            cf_path = os.path.join(loc, '.2-n_solitaire.conf')
             cf_content = toml.load(cf_path)
             logging.info('Reading config file %r', cf_path)
             return cf_content
