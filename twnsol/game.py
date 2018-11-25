@@ -146,21 +146,18 @@ class Game:
         self.draw_columns()
         pygame.display.update()
 
-    def game_over(self):
-        """Game over.
+    def draw_game_over_screen(self):
+        """Draw the game over screen.
 
-        Display score and wait until user closes the game, then exit.
-        This method does not return.
+        Black & white screen with score.
         """
-        logging.info('GAME OVER')
-
         self.display.fill(CONST['color']['black'])
 
-        font = pygame.font.Font(CONST['font']['path']['default'],
-                                CONST['font']['size']['big'])
+        go_font = pygame.font.Font(CONST['font']['path']['default'],
+                                   CONST['font']['size']['big'])
 
         go_text = 'GAME OVER'
-        go = font.render(go_text, True, CONST['color']['white'])
+        go = go_font.render(go_text, True, CONST['color']['white'])
         go_rect = go.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -170,7 +167,7 @@ class Game:
         self.display.blit(go, go_rect)
 
         score_text = f'Score: {self.score}'
-        score = font.render(score_text, True, CONST['color']['white'])
+        score = go_font.render(score_text, True, CONST['color']['white'])
         score_rect = score.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -181,6 +178,16 @@ class Game:
 
         pygame.display.update()
 
+    def game_over(self):
+        """Game over.
+
+        Display score and wait until user closes the game, then exit.
+        This method does not return.
+        """
+        logging.info('GAME OVER')
+        self.draw_game_over_screen()
+
+        # Wait for exit
         while True:
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
