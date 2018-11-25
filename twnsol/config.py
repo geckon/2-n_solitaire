@@ -1,3 +1,16 @@
+"""
+twnsol.config
+----------------
+
+This module manages configuration for 2^n Solitaire.
+
+CONF dictionary is provided for any module to use.
+
+These functions are implemented:
+- read_config_file() finds and reads a config file if available
+- init_config() initializes CONF dictionary, needs to be called once
+"""
+
 import os
 import logging
 

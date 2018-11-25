@@ -1,3 +1,15 @@
+"""
+twnsol.game
+----------------
+
+This module represents the 2^n Solitaire game.
+
+Game class is provided which handles the whole game.
+
+These functions are implemented:
+- get_random_card() generates a random card value
+"""
+
 import logging
 import random
 

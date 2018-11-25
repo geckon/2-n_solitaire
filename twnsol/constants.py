@@ -1,3 +1,13 @@
+"""
+twnsol.constants
+----------------
+
+This module sets constants used by 2^n Solitaire.
+
+CONST dictionary is provided for any module to use.
+"""
+
+
 CONST = {
     'game': {
         'caption': '2^n Solitaire',
