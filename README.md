@@ -19,7 +19,7 @@ implement it using Pygame. Here we are.
 The goal of the game is to stack an endless row of cards into limited-size
 columns. Each time you stack two cards of the same value one on the other,
 the two cards are replaced by one of double the value and your score grows.
-Cards with the maximum value (configurable, 2048 by default) will disappear.
+Cards with the maximum value (configurable, see below) will disappear.
 The game ends once all the columns are full and so no more cards can be played.
 
 ### Controls
@@ -29,8 +29,21 @@ The game ends once all the columns are full and so no more cards can be played.
 This is what the game looks like. At the top you can see your current score,
 below that is the main board where the cards are stacked. In the bottom part you
 can see two next cards that will come to the game. You can use `1`, `2`, `3` and
-`4` keys to place the next upcoming card to the respective column. That's it.
-Simple, eh?
+`4` keys to place the next upcoming card to the respective column.
+
+That's it. Simple, eh?
+
+### Configuration
+
+There are some configurable options - see
+the [default config file](.2-n_solitaire.conf). All options should be described
+there including default values which will be used if not specified otherwise.
+The game will search for the configuration file in the following locations
+(in this order):
+-   current working directory
+-   home directory
+-   directory specified by twoN_SOLITAIRE_CONF_DIR environment
+    variable
 
 ### Current state
 
