@@ -310,6 +310,28 @@ class Game:
 
         return True
 
+    def process_key(self, event):
+        """Process a key command from the player.
+
+        Add the upcoming card to a respective column if the player made
+        a valid turn. In such case, return True, False otherwise.
+        """
+        if event.key == pygame.K_1:
+            logging.debug('Key 1 pressed.')
+            return self.add_next_to_col(0)
+        if event.key == pygame.K_2:
+            logging.debug('Key 2 pressed.')
+            return self.add_next_to_col(1)
+        if event.key == pygame.K_3:
+            logging.debug('Key 3 pressed.')
+            return self.add_next_to_col(2)
+        if event.key == pygame.K_4:
+            logging.debug('Key 4 pressed.')
+            return self.add_next_to_col(3)
+
+        logging.debug('Unsupported key: %s', event.key)
+        return False
+
     def loop(self):
         """The main loop.
 
@@ -321,25 +343,9 @@ class Game:
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
                 exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    logging.debug('Key 1 pressed.')
-                    if not self.add_next_to_col(0):
-                        continue
-                elif event.key == pygame.K_2:
-                    logging.debug('Key 2 pressed.')
-                    if not self.add_next_to_col(1):
-                        continue
-                elif event.key == pygame.K_3:
-                    logging.debug('Key 3 pressed.')
-                    if not self.add_next_to_col(2):
-                        continue
-                elif event.key == pygame.K_4:
-                    logging.debug('Key 4 pressed.')
-                    if not self.add_next_to_col(3):
-                        continue
-                else:
-                    logging.debug('Unsupported key: %s', event.key)
+
+            if event.type == pygame.KEYDOWN:
+                self.process_key(event)
             else:
                 logging.debug('Unsupported event: %s', event)
 
