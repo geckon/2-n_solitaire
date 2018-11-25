@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+#  ___  _ __     _____       _ _ _        _
+# |__ \| '_ \   / ____|     | (_) |      (_)
+#    ) |_| |_| | (___   ___ | |_| |_ __ _ _ _ __ ___
+#   / /         \___ \ / _ \| | | __/ _` | | '__/ _ \
+#  / /_         ____) | (_) | | | || (_| | | | |  __/
+# |____|       |_____/ \___/|_|_|\__\__,_|_|_|  \___|
+#
+
+"""
+solitaire.py
+------------
+
+Executable to run the game.
+
+Accepts -D|--debug argument to run in debug mode.
+"""
 
 import argparse
 import logging
