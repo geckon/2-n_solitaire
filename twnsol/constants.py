@@ -1,3 +1,23 @@
+# -*- coding: utf-8 -*-
+
+#  ___  _ __     _____       _ _ _        _
+# |__ \| '_ \   / ____|     | (_) |      (_)
+#    ) |_| |_| | (___   ___ | |_| |_ __ _ _ _ __ ___
+#   / /         \___ \ / _ \| | | __/ _` | | '__/ _ \
+#  / /_         ____) | (_) | | | || (_| | | | |  __/
+# |____|       |_____/ \___/|_|_|\__\__,_|_|_|  \___|
+#
+
+"""
+twnsol.constants
+----------------
+
+This module sets constants used by 2^n Solitaire.
+
+CONST dictionary is provided for any module to use.
+"""
+
+
 CONST = {
     'game': {
         'caption': '2^n Solitaire',
@@ -16,6 +36,7 @@ CONST = {
         }
     },
     'column': {
+        'space': 3,          # between columns and between cards (in px)
         'count': 4,
         'max_cards': 5,      # in a column
     },

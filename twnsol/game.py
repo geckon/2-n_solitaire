@@ -1,18 +1,56 @@
+# -*- coding: utf-8 -*-
+
+#  ___  _ __     _____       _ _ _        _
+# |__ \| '_ \   / ____|     | (_) |      (_)
+#    ) |_| |_| | (___   ___ | |_| |_ __ _ _ _ __ ___
+#   / /         \___ \ / _ \| | | __/ _` | | '__/ _ \
+#  / /_         ____) | (_) | | | || (_| | | | |  __/
+# |____|       |_____/ \___/|_|_|\__\__,_|_|_|  \___|
+#
+
+"""
+twnsol.game
+-----------
+
+This module represents the 2^n Solitaire game.
+
+Game class is provided which handles the whole game.
+
+These functions are implemented:
+- get_random_card() generates a random card value
+"""
+
 import logging
 import random
 
 import pygame
 
-from config import CONF
-from constants import CONST
+from twnsol.config import CONF
+from twnsol.constants import CONST
 
 
 class Game:
+    """Represents the solitaire game as a whole.
+
+    One instance of this class should be created on game start and no
+    more should be needed. It stores the game state, draws the board,
+    keeps the clock, etc.
+
+    Attributes:
+        display (pygame.display): the window for the game
+        capt_font (pygame.font): font used for captions in the border
+        state (list of lists): state of the game (columns - card values)
+        next_cards (tuple): two ints representing the upcoming two cards
+        clock (pygame.time.Clock): clock for the game
+        score (int): current score
+
+    """
     def __init__(self, display):
+        """Initialize the game."""
         self.display = display
         pygame.font.init()
-        self.font = pygame.font.Font(CONST['font']['path']['default'],
-                                     CONST['font']['size']['normal'])
+        self.capt_font = pygame.font.Font(CONST['font']['path']['default'],
+                                          CONST['font']['size']['normal'])
         self.state = []
         for _ in range(CONST['column']['count']):
             self.state.append([])
@@ -21,6 +59,12 @@ class Game:
         self.score = 0
 
     def generate_next_cards(self, just_one=True):
+        """Generate value(s) for the upcoming card(s).
+
+        Mostly just one value is generated and then the next-next value
+        is shifted to next and next-next is generated as a new one. If
+        just_one argument is False then both values are generated anew.
+        """
         if just_one:
             self.next_cards = (self.next_cards[1], get_random_card())
         else:
@@ -28,6 +72,11 @@ class Game:
         return self.next_cards
 
     def draw_border(self):
+        """Draw the border around the game board.
+
+        Draw white board around black board and add captions for score
+        and the upcoming cards.
+        """
         self.display.fill(CONST['color']['white'])
         pygame.draw.rect(
             self.display,
@@ -42,10 +91,16 @@ class Game:
         self.draw_captions()
 
     def draw_captions(self):
+        """Draw captions for score and upcoming cards."""
         score_text = f'Score: {self.score}'
-        score = self.font.render(score_text, True, CONST['color']['black'])
+        score = self.capt_font.render(
+            score_text,
+            True,
+            CONST['color']['black']
+        )
         nc_text = f'Next cards: {self.next_cards[0]}, {self.next_cards[1]}'
-        next_cards = self.font.render(nc_text, True, CONST['color']['black'])
+        next_cards = self.capt_font.render(nc_text, True,
+                                           CONST['color']['black'])
         next_cards_rect = next_cards.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -61,82 +116,103 @@ class Game:
         self.display.blit(score, score_rect)
         self.display.blit(next_cards, next_cards_rect)
 
+    def draw_cards(self, col, col_index, col_width):
+        """Draw cards in a column.
+
+        Draw cards into the specified (already drawn) column.
+
+        Arguments:
+            col (pygame.Rect): the already drawn column
+            col_index (int): column index to the self.state "table"
+            col_width (int): width of the column
+        """
+        for card_index, card in enumerate(self.state[col_index]):
+            card_width = col_width - 2 * CONST['column']['space']
+            card_rect = pygame.draw.rect(
+                self.display,
+                CONST['color']['blue'],
+                [
+                    col.left + CONST['column']['space'],
+                    col.top + CONST['column']['space'] + card_index * (
+                        CONST['card']['height'] + CONST['column']['space']
+                    ),
+                    card_width,
+                    CONST['card']['height']
+                ]
+            )
+            card_text = f'{card}'
+            card_capt = self.capt_font.render(card_text, True,
+                                              CONST['color']['white'])
+            card_capt_rect = card_capt.get_rect(
+                center=(
+                    card_rect.left + card_width / 2,
+                    card_rect.top + CONST['card']['height'] / 2
+                )
+            )
+
+            logging.debug(' Card: %s', card_rect)
+            logging.debug('  Card caption: %s', card_capt_rect)
+            self.display.blit(card_capt, card_capt_rect)
+
     def draw_columns(self):
-        space = 3
+        """Draw columns and cards.
+
+        Count column width from the board width and number of columns.
+        """
+        CONST['column']['space'] = 3
         border_size = CONST['game']['border_size']
         columns_cnt = CONST['column']['count']
         inner_width = CONST['game']['width'] - 2 * border_size
-        col_width = (inner_width - space * (columns_cnt + 1)) / columns_cnt
-        card_width = col_width - 2 * space
+        col_width = (inner_width - CONST['column']['space'] *
+                     (columns_cnt + 1)) / columns_cnt
         for col_index in range(columns_cnt):
             col = pygame.draw.rect(
                 self.display,
                 CONST['color']['green'],
                 [
-                    border_size + space + col_index * (col_width + space),
-                    border_size + space,
+                    border_size + CONST['column']['space'] + col_index * (
+                        col_width + CONST['column']['space']
+                    ),
+                    border_size + CONST['column']['space'],
                     col_width,
-                    CONST['game']['height'] - 2 * (border_size + space)
+                    CONST['game']['height'] - 2 * (
+                        border_size + CONST['column']['space']
+                    )
                 ]
             )
-            logging.debug(f'Column: {col} ... left {col.left}, top {col.top}')
+            logging.debug('Column: %s ... left %s, top %s',
+                          col, col.left, col.top)
 
-            # draw cards in column
-            for card_index, card in enumerate(self.state[col_index]):
-                card_rect = pygame.draw.rect(
-                    self.display,
-                    CONST['color']['blue'],
-                    [
-                        col.left + space,
-                        col.top + space + card_index * (CONST['card']['height'] + space),
-                        card_width,
-                        CONST['card']['height']
-                    ]
-                )
-                card_text = f'{card}'
-                card_capt = self.font.render(card_text, True,
-                                             CONST['color']['white'])
-                card_capt_rect = card_capt.get_rect(
-                    center=(
-                        card_rect.left + card_width / 2,
-                        card_rect.top + CONST['card']['height'] / 2
-                    )
-                )
-
-                logging.debug(f' Card: {card_rect}')
-                logging.debug(f'  Card caption: {card_capt_rect}')
-                self.display.blit(card_capt, card_capt_rect)
+            self.draw_cards(col, col_index, col_width)
 
     def draw_board(self):
+        """Draw border and columns including cards."""
         self.draw_border()
         self.draw_columns()
         pygame.display.update()
 
-    def game_over(self):
-        """Game over.
+    def draw_game_over_screen(self):
+        """Draw the game over screen.
 
-        Display score and wait until user closes the game, then exit.
-        This method does not return.
+        Black & white screen with score.
         """
-        logging.info('GAME OVER')
-
         self.display.fill(CONST['color']['black'])
 
-        font = pygame.font.Font(CONST['font']['path']['default'],
-                                CONST['font']['size']['big'])
+        go_font = pygame.font.Font(CONST['font']['path']['default'],
+                                   CONST['font']['size']['big'])
 
         go_text = 'GAME OVER'
-        go = font.render(go_text, True, CONST['color']['white'])
-        go_rect = go.get_rect(
+        go_capt = go_font.render(go_text, True, CONST['color']['white'])
+        go_rect = go_capt.get_rect(
             center=(
                 CONST['game']['width'] / 2,
                 CONST['game']['height'] * 0.25
             )
         )
-        self.display.blit(go, go_rect)
+        self.display.blit(go_capt, go_rect)
 
         score_text = f'Score: {self.score}'
-        score = font.render(score_text, True, CONST['color']['white'])
+        score = go_font.render(score_text, True, CONST['color']['white'])
         score_rect = score.get_rect(
             center=(
                 CONST['game']['width'] / 2,
@@ -147,6 +223,16 @@ class Game:
 
         pygame.display.update()
 
+    def game_over(self):
+        """Game over.
+
+        Display score and wait until user closes the game, then exit.
+        This method does not return.
+        """
+        logging.info('GAME OVER')
+        self.draw_game_over_screen()
+
+        # Wait for exit
         while True:
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
@@ -171,6 +257,9 @@ class Game:
         # all columns are full and not even the upcoming card can be added
         self.game_over()
 
+        # This should never happen though, since self.game_over() exits
+        return True
+
     def squash_column(self, col):
         """ Consolidate the column.
 
@@ -178,7 +267,7 @@ class Game:
         of the column) and remove cards that reached the maximum value
         (set in CONSTiguration).
         """
-        while (len(self.state[col]) >= 1):
+        while len(self.state[col]) >= 1:
             # if the last card reached the maximum value
             # (and such value exists), remove the card
             if (CONF['max_card_value'] > 0 and
@@ -237,50 +326,54 @@ class Game:
             self.clock.tick(CONST['game']['fps'])
             self.draw_board()
 
-
         self.squash_column(col)
-
         self.generate_next_cards(just_one=True)
-
         self.check_game_over()
 
         return True
 
-    def loop(self):
-        self.draw_board()
+    def process_key(self, event):
+        """Process a key command from the player.
 
+        Add the upcoming card to a respective column if the player made
+        a valid turn. In such case, return True, False otherwise.
+        """
+        if event.key == pygame.K_1:
+            logging.debug('Key 1 pressed.')
+            return self.add_next_to_col(0)
+        if event.key == pygame.K_2:
+            logging.debug('Key 2 pressed.')
+            return self.add_next_to_col(1)
+        if event.key == pygame.K_3:
+            logging.debug('Key 3 pressed.')
+            return self.add_next_to_col(2)
+        if event.key == pygame.K_4:
+            logging.debug('Key 4 pressed.')
+            return self.add_next_to_col(3)
+
+        logging.debug('Unsupported key: %s', event.key)
+        return False
+
+    def loop(self):
+        """The main loop.
+
+        Draw the board and wait for the player's move. Evaluate it,
+        re-draw the screen and continue until the game is finished.
+        """
         while True:
+            self.draw_board()
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
                 exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    logging.debug('Key 1 pressed.')
-                    if not self.add_next_to_col(0):
-                        continue
-                    self.draw_board()
-                elif event.key == pygame.K_2:
-                    logging.debug('Key 2 pressed.')
-                    if not self.add_next_to_col(1):
-                        continue
-                    self.draw_board()
-                elif event.key == pygame.K_3:
-                    logging.debug('Key 3 pressed.')
-                    if not self.add_next_to_col(2):
-                        continue
-                    self.draw_board()
-                elif event.key == pygame.K_4:
-                    logging.debug('Key 4 pressed.')
-                    if not self.add_next_to_col(3):
-                        continue
-                    self.draw_board()
-                else:
-                    logging.debug(f'Unsupported key: {event.key}')
+
+            if event.type == pygame.KEYDOWN:
+                self.process_key(event)
             else:
-                logging.debug(f'Unsupported event: {event}')
+                logging.debug('Unsupported event: %s', event)
 
         self.clock.tick(CONST['game']['fps'])
 
-def get_random_card():
-    return 2 ** random.randint(1, 6)
 
+def get_random_card():
+    """Generate a random card value."""
+    return 2 ** random.randint(1, 6)

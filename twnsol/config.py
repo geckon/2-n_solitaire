@@ -1,9 +1,33 @@
+# -*- coding: utf-8 -*-
+
+#  ___  _ __     _____       _ _ _        _
+# |__ \| '_ \   / ____|     | (_) |      (_)
+#    ) |_| |_| | (___   ___ | |_| |_ __ _ _ _ __ ___
+#   / /         \___ \ / _ \| | | __/ _` | | '__/ _ \
+#  / /_         ____) | (_) | | | || (_| | | | |  __/
+# |____|       |_____/ \___/|_|_|\__\__,_|_|_|  \___|
+#
+
+"""
+twnsol.config
+-------------
+
+This module manages configuration for 2^n Solitaire.
+
+CONF dictionary is provided for any module to use.
+
+These functions are implemented:
+- read_config_file() finds and reads a config file if available
+- init_config() initializes CONF dictionary, needs to be called once
+"""
+
 import os
 import logging
 
 import toml
 
 CONF = {}
+
 
 def read_config_file():
     """Find and read config file (.2-n_solitaire.conf) if exists.
@@ -36,10 +60,11 @@ def read_config_file():
         except TypeError as err:
             logging.debug('Not found.')
         except toml.TomlDecodeError:
-            logging.warn('Config file %s has a wrong format. Ingoring it.')
+            logging.warning('Config file %s has a wrong format. Ingoring it.')
 
     logging.info('Config file not found. Default values will be used.')
     return {}
+
 
 def init_config():
     """Initialize config with data from a config file if available.
