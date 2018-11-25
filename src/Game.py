@@ -3,6 +3,7 @@ import random
 
 import pygame
 
+from config import CONF
 from constants import CONST
 
 
@@ -179,7 +180,7 @@ class Game:
         """
         while (len(self.state[col]) >= 1):
             # if the last card reached the maximum value, remove it
-            if self.state[col][-1] == CONST['card']['max_value']:
+            if self.state[col][-1] >= CONF['max_card_value']:
                 self.score += self.state[col][-1]
                 del self.state[col][-1]
                 # re-draw the screen

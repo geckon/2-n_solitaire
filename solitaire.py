@@ -2,9 +2,11 @@
 
 import argparse
 import logging
-import pygame
 import sys
 
+import pygame
+
+from config import init_config
 from constants import CONST
 from src.Game import Game
 
@@ -31,6 +33,9 @@ def main():
     else:
         loglevel = logging.WARNING
     init_log(level=loglevel)
+
+    # initialize config
+    init_config()
 
     # initialize and start the game
     display = pygame.display.set_mode((CONST['game']['width'],
