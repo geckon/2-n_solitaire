@@ -6,9 +6,9 @@ import sys
 
 import pygame
 
-from config import init_config
-from constants import CONST
-from src.Game import Game
+from twnsol.config import init_config
+from twnsol.constants import CONST
+from twnsol.game import Game
 
 def init_log(level=logging.WARNING):
     """Initialize log.

@@ -3,8 +3,8 @@ import random
 
 import pygame
 
-from config import CONF
-from constants import CONST
+from twnsol.config import CONF
+from twnsol.constants import CONST
 
 
 class Game:
