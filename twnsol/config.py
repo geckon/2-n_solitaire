@@ -5,6 +5,7 @@ import toml
 
 CONF = {}
 
+
 def read_config_file():
     """Find and read config file (.2-n_solitaire.conf) if exists.
 
@@ -40,6 +41,7 @@ def read_config_file():
 
     logging.info('Config file not found. Default values will be used.')
     return {}
+
 
 def init_config():
     """Initialize config with data from a config file if available.

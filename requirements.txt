@@ -1,2 +1,4 @@
+pycodestyle==2.4.0
 pygame==1.9.4
+pylint==2.1.1
 toml==0.10.0

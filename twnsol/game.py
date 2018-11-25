@@ -71,7 +71,11 @@ class Game:
     def draw_captions(self):
         """Draw captions for score and upcoming cards."""
         score_text = f'Score: {self.score}'
-        score = self.capt_font.render(score_text, True, CONST['color']['black'])
+        score = self.capt_font.render(
+            score_text,
+            True,
+            CONST['color']['black']
+        )
         nc_text = f'Next cards: {self.next_cards[0]}, {self.next_cards[1]}'
         next_cards = self.capt_font.render(nc_text, True,
                                            CONST['color']['black'])
@@ -90,7 +94,6 @@ class Game:
         self.display.blit(score, score_rect)
         self.display.blit(next_cards, next_cards_rect)
 
-
     def draw_cards(self, col, col_index, col_width):
         """Draw cards in a column.
 
@@ -108,7 +111,9 @@ class Game:
                 CONST['color']['blue'],
                 [
                     col.left + CONST['column']['space'],
-                    col.top + CONST['column']['space'] + card_index * (CONST['card']['height'] + CONST['column']['space']),
+                    col.top + CONST['column']['space'] + card_index * (
+                        CONST['card']['height'] + CONST['column']['space']
+                    ),
                     card_width,
                     CONST['card']['height']
                 ]
@@ -136,22 +141,26 @@ class Game:
         border_size = CONST['game']['border_size']
         columns_cnt = CONST['column']['count']
         inner_width = CONST['game']['width'] - 2 * border_size
-        col_width = (inner_width - CONST['column']['space'] * (columns_cnt + 1)) / columns_cnt
+        col_width = (inner_width - CONST['column']['space'] *
+                     (columns_cnt + 1)) / columns_cnt
         for col_index in range(columns_cnt):
             col = pygame.draw.rect(
                 self.display,
                 CONST['color']['green'],
                 [
-                    border_size + CONST['column']['space'] + col_index * (col_width + CONST['column']['space']),
+                    border_size + CONST['column']['space'] + col_index * (
+                        col_width + CONST['column']['space']
+                    ),
                     border_size + CONST['column']['space'],
                     col_width,
-                    CONST['game']['height'] - 2 * (border_size + CONST['column']['space'])
+                    CONST['game']['height'] - 2 * (
+                        border_size + CONST['column']['space']
+                    )
                 ]
             )
             logging.debug(f'Column: {col} ... left {col.left}, top {col.top}')
 
             self.draw_cards(col, col_index, col_width)
-
 
     def draw_board(self):
         """Draw border and columns including cards."""
@@ -291,11 +300,8 @@ class Game:
             self.clock.tick(CONST['game']['fps'])
             self.draw_board()
 
-
         self.squash_column(col)
-
         self.generate_next_cards(just_one=True)
-
         self.check_game_over()
 
         return True
@@ -335,7 +341,7 @@ class Game:
 
         self.clock.tick(CONST['game']['fps'])
 
+
 def get_random_card():
     """Generate a random card value."""
     return 2 ** random.randint(1, 6)
-

@@ -10,6 +10,7 @@ from twnsol.config import init_config
 from twnsol.constants import CONST
 from twnsol.game import Game
 
+
 def init_log(level=logging.WARNING):
     """Initialize log.
 
@@ -45,6 +46,7 @@ def main():
 
     game = Game(display)
     game.loop()
+
 
 if __name__ == '__main__':
     main()
