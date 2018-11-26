@@ -8,6 +8,7 @@
 
 init:
 	pip install -r requirements.txt
+	pip freeze
 
 pycodestyle:
 	pycodestyle --exclude=venv --filename="*.py" .
