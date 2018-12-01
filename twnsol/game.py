@@ -24,7 +24,6 @@ import logging
 import random
 
 import pygame
-from pygame.constants import K_1, K_2, K_3, K_4, KEYDOWN, QUIT
 
 from twnsol.config import CONF
 from twnsol.constants import CONST
@@ -236,7 +235,7 @@ class Game:
         # Wait for exit
         while True:
             event = pygame.event.wait()
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:       # pylint: disable=no-member
                 exit()
 
     def check_game_over(self):
@@ -339,16 +338,16 @@ class Game:
         Add the upcoming card to a respective column if the player made
         a valid turn. In such case, return True, False otherwise.
         """
-        if event.key == K_1:
+        if event.key == pygame.K_1:
             logging.debug('Key 1 pressed.')
             return self.add_next_to_col(0)
-        if event.key == K_2:
+        if event.key == pygame.K_2:
             logging.debug('Key 2 pressed.')
             return self.add_next_to_col(1)
-        if event.key == K_3:
+        if event.key == pygame.K_3:
             logging.debug('Key 3 pressed.')
             return self.add_next_to_col(2)
-        if event.key == K_4:
+        if event.key == pygame.K_4:
             logging.debug('Key 4 pressed.')
             return self.add_next_to_col(3)
 
@@ -364,10 +363,10 @@ class Game:
         while True:
             self.draw_board()
             event = pygame.event.wait()
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:
                 exit()
 
-            if event.type == KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 self.process_key(event)
             else:
                 logging.debug('Unsupported event: %s', event)
@@ -377,4 +376,6 @@ class Game:
 
 def get_random_card():
     """Generate a random card value."""
-    return 2 ** random.randint(1, 6)
+    # the nosec comment is for bandit - see issue #25
+    # TL;DR pseudo-random generator is unsafe for crypto use but OK here
+    return 2 ** random.randint(1, 6)   # nosec
