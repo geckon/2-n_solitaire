@@ -21,3 +21,4 @@ pylint:
 pylint-error:
 	pylint --reports=n --disable=C,R,W solitaire.py twnsol
 
+travis: bandit pycodestyle pylint-error
