@@ -376,4 +376,7 @@ class Game:
 
 def get_random_card():
     """Generate a random card value."""
-    return 2 ** random.randint(1, 6)
+    # the nosec comment is for bandit - see issue #25
+    # TL;DR pseudo-random generator is unsafe for crypto use but OK here
+    return 2 ** random.randint(1, 6)   # nosec
+
