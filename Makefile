@@ -9,6 +9,9 @@
 init:
 	pip install -r requirements.txt
 
+bandit:
+	bandit -r solitaire.py twnsol
+
 pycodestyle:
 	pycodestyle --exclude=venv --filename="*.py" .
 

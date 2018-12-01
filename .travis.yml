@@ -23,6 +23,7 @@ install:
 script:
   - make pycodestyle
   - make pylint-error
+  - make bandit
 
 notifications:
   email:
