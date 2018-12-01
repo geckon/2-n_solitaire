@@ -235,7 +235,8 @@ class Game:
         # Wait for exit
         while True:
             event = pygame.event.wait()
-            if event.type == pygame.QUIT:       # pylint: disable=no-member
+            # pylint: disable=no-member (false positive - see issue #26)
+            if event.type == pygame.QUIT:
                 exit()
 
     def check_game_over(self):
@@ -338,6 +339,7 @@ class Game:
         Add the upcoming card to a respective column if the player made
         a valid turn. In such case, return True, False otherwise.
         """
+        # pylint: disable=no-member (false positive - see issue #26)
         if event.key == pygame.K_1:
             logging.debug('Key 1 pressed.')
             return self.add_next_to_col(0)
@@ -363,6 +365,7 @@ class Game:
         while True:
             self.draw_board()
             event = pygame.event.wait()
+            # pylint: disable=no-member (false positive - see issue #26)
             if event.type == pygame.QUIT:
                 exit()
 
