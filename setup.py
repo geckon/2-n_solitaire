@@ -47,8 +47,7 @@ Please report issues/ideas at Github.
 
 setup(
     name='twn-solitaire',
-    version='0.1.0',
-    author='Tomáš Heger',
+    version='0.0.1',
     packages=['twnsol',],
     scripts=['solitaire.py',],
     url='https://github.com/geckon/2-n_solitaire',
@@ -59,4 +58,5 @@ setup(
         "pygame == 1.9.4",
         "toml == 0.10.0",
     ],
+    include_package_data=True,
 )
