@@ -8,6 +8,7 @@
 
 init:
 	pip install -r requirements.txt
+	pip freeze
 
 bandit:
 	bandit -r solitaire.py twnsol
