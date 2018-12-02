@@ -44,7 +44,7 @@ The game will search for the configuration file in the following locations
 
 -   current working directory
 -   home directory
--   directory specified by twoN_SOLITAIRE_CONF_DIR environment
+-   directory specified by TWN_SOLITAIRE_CONF_DIR environment
     variable
 
 ### Current state

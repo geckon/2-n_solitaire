@@ -35,11 +35,11 @@ def read_config_file():
     Config file will be looked for in these directories in this order:
     - current working directory
     - home directory
-    - directory specified by twoN_SOLITAIRE_CONF_DIR environment
+    - directory specified by TWN_SOLITAIRE_CONF_DIR environment
       variable
     Return the config file contents if found, empty directory otherwise.
     """
-    env_var = 'twoN_SOLITAIRE_CONF_DIR'
+    env_var = 'TWN_SOLITAIRE_CONF_DIR'
 
     locations = [
         (os.curdir, 'current directory'),
