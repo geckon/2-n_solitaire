@@ -47,7 +47,7 @@ Please report issues/ideas at Github.
 
 setup(
     name='twn-solitaire',
-    version='0.0.1',
+    version='0.0.1a1',
     packages=['twnsol',],
     scripts=['solitaire.py',],
     url='https://github.com/geckon/2-n_solitaire',
