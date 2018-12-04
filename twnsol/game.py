@@ -33,13 +33,13 @@ class Game:
     """Represents the solitaire game as a whole.
 
     One instance of this class should be created on game start and no
-    more should be needed. It stores the game state, draws the board,
+    more should be needed. It stores the game board, draws the board,
     keeps the clock, etc.
 
     Attributes:
         display (pygame.display): the window for the game
         capt_font (pygame.font): font used for captions in the border
-        state (list of lists): state of the game (columns - card values)
+        board (list of lists): state of the game (columns - card values)
         next_cards (tuple): two ints representing the upcoming two cards
         clock (pygame.time.Clock): clock for the game
         score (int): current score
@@ -51,9 +51,7 @@ class Game:
         pygame.font.init()
         self.capt_font = pygame.font.Font(CONST['font']['path']['default'],
                                           CONST['font']['size']['normal'])
-        self.state = []
-        for _ in range(CONST['column']['count']):
-            self.state.append([])
+        self.board = [[] for _ in range(CONST['column']['count'])]
         self.generate_next_cards(just_one=False)
         self.clock = pygame.time.Clock()
         self.score = 0
@@ -123,10 +121,10 @@ class Game:
 
         Arguments:
             col (pygame.Rect): the already drawn column
-            col_index (int): column index to the self.state "table"
+            col_index (int): column index to the self.board "table"
             col_width (int): width of the column
         """
-        for card_index, card in enumerate(self.state[col_index]):
+        for card_index, card in enumerate(self.board[col_index]):
             card_width = col_width - 2 * CONST['column']['space']
             card_rect = pygame.draw.rect(
                 self.display,
@@ -247,7 +245,7 @@ class Game:
         placed on top of any of them (and merge with the current card
         on top), display the game over screen. Otherwise return False.
         """
-        for col in self.state:
+        for col in self.board:
             if len(col) < CONST['column']['max_cards']:
                 # any card can still be added
                 return False
@@ -269,23 +267,23 @@ class Game:
         of the column) and remove cards that reached the maximum value
         (set in CONSTiguration).
         """
-        while len(self.state[col]) >= 1:
+        while len(self.board[col]) >= 1:
             # if the last card reached the maximum value
             # (and such value exists), remove the card
             if (CONF['max_card_value'] > 0 and
-                    self.state[col][-1] >= CONF['max_card_value']):
-                self.score += self.state[col][-1]
-                del self.state[col][-1]
+                    self.board[col][-1] >= CONF['max_card_value']):
+                self.score += self.board[col][-1]
+                del self.board[col][-1]
                 # re-draw the screen
                 self.clock.tick(CONST['game']['fps'])
                 self.draw_board()
 
             # else if the last two cards have the same value, merge them
-            elif (len(self.state[col]) > 1 and
-                  self.state[col][-1] == self.state[col][-2]):
-                self.score += self.state[col][-1]
-                del self.state[col][-1]
-                self.state[col][-1] *= 2
+            elif (len(self.board[col]) > 1 and
+                  self.board[col][-1] == self.board[col][-2]):
+                self.score += self.board[col][-1]
+                del self.board[col][-1]
+                self.board[col][-1] *= 2
 
                 # re-draw the screen
                 self.clock.tick(CONST['game']['fps'])
@@ -314,17 +312,17 @@ class Game:
         logging.debug('Adding next card (%d) to column %d',
                       self.next_cards[0], col)
 
-        if (len(self.state[col]) >= CONST['column']['max_cards'] and
-                self.state[col][-1] != self.next_cards[0]):
+        if (len(self.board[col]) >= CONST['column']['max_cards'] and
+                self.board[col][-1] != self.next_cards[0]):
             # the card can't be added to this column
             return False
 
         # add the card
-        self.state[col].append(self.next_cards[0])
+        self.board[col].append(self.next_cards[0])
 
         # only re-draw before squashing if there is not the extra card
         # that can only be added if it will be squashed immediately
-        if len(self.state[col]) <= CONST['column']['max_cards']:
+        if len(self.board[col]) <= CONST['column']['max_cards']:
             self.clock.tick(CONST['game']['fps'])
             self.draw_board()
 
