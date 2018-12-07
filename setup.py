@@ -26,8 +26,8 @@ CONTROLS
 
 At the top you can see your current score, below that is the main board where
 the cards are stacked. In the bottom part you can see two next cards that will
-come to the game. You can use 1, 2, 3 and 4 keys to place the next upcoming card
-to the respective column.
+come to the game. You can use 1, 2, 3 and 4 keys to place the next upcoming
+card to the respective column.
 
 
 CONFIGURATION
@@ -48,11 +48,12 @@ Please report issues/ideas at Github.
 setup(
     name='twn-solitaire',
     version='0.0.1a1',
-    packages=['twnsol',],
-    scripts=['solitaire.py',],
+    packages=['twnsol', ],
+    scripts=['solitaire.py', ],
     url='https://github.com/geckon/2-n_solitaire',
     license='GNU GPL v3',
-    description='Generic version of 2048 Solitaire. Simple, fun and satisfying game.',
+    description='Generic version of 2048 Solitaire. Simple, fun and '
+                'satisfying game.',
     long_description=long_desc,
     install_requires=[
         "pygame == 1.9.4",
