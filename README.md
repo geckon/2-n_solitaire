@@ -25,7 +25,7 @@ The game ends once all the columns are full and so no more cards can be played.
 
 ### Controls
 
-![Screenshot](docs/screenshot.png)
+![Screenshot](https://github.com/geckon/2-n_solitaire/blob/master/docs/screenshot.png)
 
 This is what the game looks like. At the top you can see your current score,
 below that is the main board where the cards are stacked. In the bottom part you
