@@ -35,9 +35,9 @@ CONFIGURATION
 There are some configurable options - see the default config file
 (.2-n_solitaire.conf). All options should be described there including default
 values which will be used if not specified otherwise. The game will search for
-the configuration file in the following locations (in this order):
--   current working directory
--   home directory
+the configuration file in the following locations (in this order):\n
+-   current working directory\n
+-   home directory\n
 -   directory specified by TWN_SOLITAIRE_CONF_DIR environment variable
 
 
@@ -47,7 +47,7 @@ Please report issues/ideas at Github.
 
 setup(
     name='twn-solitaire',
-    version='0.0.1a1',
+    version='0.0.1a3',
     packages=['twnsol', ],
     scripts=['solitaire.py', ],
     url='https://github.com/geckon/2-n_solitaire',
@@ -59,5 +59,6 @@ setup(
         "pygame == 1.9.4",
         "toml == 0.10.0",
     ],
-    include_package_data=True,
+    package_data={'': ['LICENSE', 'assets'],},
+    package_dir={'requests': 'requests'}
 )

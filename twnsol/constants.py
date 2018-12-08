@@ -17,6 +17,33 @@ This module sets constants used by 2^n Solitaire.
 CONST dictionary is provided for any module to use.
 """
 
+import logging
+import os
+
+#def get_assets_dir():
+#    """Return path to the assets directory.
+#
+#    It's either /usr/share/twn_solitaire/assets or ./assets. If none of
+#    these exist, throw FileNotFoundError.
+#    """
+#    locations = (
+#        '/usr/share/twn_solitaire',
+#        os.curdir,
+#    )
+#
+#    for loc in locations:
+#        assets_dir = os.path.join(loc, 'assets')
+#        if os.path.isdir(assets_dir):
+#            logging.debug('Assets dir found: %s', assets_dir)
+#            return assets_dir
+#
+#    raise FileNotFoundError('Assets directory not found.')
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+TOP_DIR = os.path.join(HERE, '..')
+
+ASSETS_DIR = os.path.join(TOP_DIR, 'assets')
 
 CONST = {
     'game': {
@@ -28,7 +55,8 @@ CONST = {
     },
     'font': {
         'path': {
-            'default': './assets/Jellee-Roman/Jellee-Roman.otf',
+            'default': os.path.join(ASSETS_DIR,
+                                    'Jellee-Roman/Jellee-Roman.otf'),
         },
         'size': {
             'normal': 18,
