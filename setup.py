@@ -13,9 +13,9 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='twn-solitaire',
-    version='0.1.0a1',
+    version='0.1.0',
     packages=['twnsol', ],
-    package_dir={'twnsol': 'twnsol'}
+    package_dir={'twnsol': 'twnsol'},
     package_data={'': ['LICENSE', 'assets/Jellee-Roman/*.txt'],
                   'twnsol': ['assets/Jellee-Roman/Jellee-Roman.otf']},
     scripts=['solitaire.py', ],
@@ -29,4 +29,11 @@ setup(
         "pygame == 1.9.4",
         "toml == 0.10.0",
     ],
+    classifiers=[
+        'Intended Audience :: End Users/Desktop',
+        'Natural Language :: English',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'Programming Language :: Python :: 3',
+        'Operating System :: OS Independent',
+    ]
 )
