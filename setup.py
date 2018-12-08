@@ -8,7 +8,7 @@
 
 from setuptools import setup
 
-with open('README.md', 'r', 'utf-8') as f:
+with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 setup(
@@ -26,6 +26,7 @@ setup(
         "pygame == 1.9.4",
         "toml == 0.10.0",
     ],
-    package_data={'': ['LICENSE', 'assets'],},
+    package_data={'': ['LICENSE'],
+                  'twnsol': ['assets']},
     package_dir={'requests': 'requests'}
 )
