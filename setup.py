@@ -13,8 +13,11 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='twn-solitaire',
-    version='0.0.1a5',
+    version='0.1.0a1',
     packages=['twnsol', ],
+    package_dir={'twnsol': 'twnsol'}
+    package_data={'': ['LICENSE', 'assets/Jellee-Roman/*.txt'],
+                  'twnsol': ['assets/Jellee-Roman/Jellee-Roman.otf']},
     scripts=['solitaire.py', ],
     url='https://github.com/geckon/2-n_solitaire',
     license='GNU GPL v3',
@@ -26,7 +29,4 @@ setup(
         "pygame == 1.9.4",
         "toml == 0.10.0",
     ],
-    package_data={'': ['LICENSE', 'assets/Jellee-Roman/OFL.txt'],
-                  'twnsol': ['assets/Jellee-Roman/Jellee-Roman.otf']},
-    package_dir={'requests': 'requests'}
 )
