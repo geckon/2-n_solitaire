@@ -17,7 +17,6 @@ This module sets constants used by 2^n Solitaire.
 CONST dictionary is provided for any module to use.
 """
 
-import logging
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
