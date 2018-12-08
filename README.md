@@ -12,10 +12,10 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/37d712df43e44d6487bb35e015c27c47)](https://app.codacy.com/app/geckon/2-n_solitaire?utm_source=github.com&utm_medium=referral&utm_content=geckon/2-n_solitaire&utm_campaign=Badge_Grade_Dashboard)
 [![Updates](https://pyup.io/repos/github/geckon/2-n_solitaire/shield.svg)](https://pyup.io/repos/github/geckon/2-n_solitaire/)
 
-2<sup>n</sup> Solitaire is a simple game inspired by 2048 Solitaire (but more
-generic) which is inspired by 2048 (but instead of tiles in a grid you collect
-cards here). I find the game fun and satisfying and thus I decided to try and
-implement it using Pygame. Here we are.
+2<sup>n</sup> Solitaire (or TWN Solitaire) is a simple game inspired by
+2048 Solitaire (but more generic) which is inspired by 2048 (but instead of
+tiles in a grid you collect cards here). I find the game fun and
+satisfying and thus I decided to try and implement it using Pygame. Here we are.
 
 The goal of the game is to stack an endless row of cards into limited-size
 columns. Each time you stack two cards of the same value one on the other,
@@ -25,7 +25,7 @@ The game ends once all the columns are full and so no more cards can be played.
 
 ### Controls
 
-![Screenshot](docs/screenshot.png)
+![Screenshot](https://github.com/geckon/2-n_solitaire/blob/master/docs/screenshot.png)
 
 This is what the game looks like. At the top you can see your current score,
 below that is the main board where the cards are stacked. In the bottom part you

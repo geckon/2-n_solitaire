@@ -17,6 +17,11 @@ This module sets constants used by 2^n Solitaire.
 CONST dictionary is provided for any module to use.
 """
 
+import os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+ASSETS_DIR = os.path.join(HERE, 'assets')
 
 CONST = {
     'game': {
@@ -28,7 +33,8 @@ CONST = {
     },
     'font': {
         'path': {
-            'default': './assets/Jellee-Roman/Jellee-Roman.otf',
+            'default': os.path.join(ASSETS_DIR,
+                                    'Jellee-Roman/Jellee-Roman.otf'),
         },
         'size': {
             'normal': 18,
