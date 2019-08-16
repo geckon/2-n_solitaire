@@ -28,6 +28,8 @@ import toml
 
 CONF = {}
 
+CONF_FILE_NAME = '.2-n_solitaire.conf'
+
 
 def read_config_file():
     """Find and read config file (.2-n_solitaire.conf) if exists.
@@ -37,7 +39,8 @@ def read_config_file():
     - home directory
     - directory specified by TWN_SOLITAIRE_CONF_DIR environment
       variable
-    Return the config file contents if found, empty directory otherwise.
+    Return the config file contents if found, empty dictionary
+    otherwise.
     """
     env_var = 'TWN_SOLITAIRE_CONF_DIR'
 
@@ -51,7 +54,7 @@ def read_config_file():
     for loc, loc_desc in locations:
         try:
             logging.debug('Trying %s', loc_desc)
-            cf_path = os.path.join(loc, '.2-n_solitaire.conf')
+            cf_path = os.path.join(loc, CONF_FILE_NAME)
             cf_content = toml.load(cf_path)
             logging.info('Reading config file %r', cf_path)
             return cf_content
