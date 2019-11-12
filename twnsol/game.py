@@ -375,8 +375,6 @@ class Game:
             else:
                 logging.debug('Unsupported event: %s', event)
 
-        self.clock.tick(CONST['game']['fps'])
-
 
 def get_random_card():
     """Generate a random card value."""
