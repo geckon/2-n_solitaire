@@ -376,7 +376,6 @@ class Game:
             else:
                 logging.debug('Unsupported event: %s', event)
 
-
 def get_random_card():
     """Generate a random card value."""
     # the nosec comment is for bandit - see issue #25
