@@ -43,7 +43,9 @@ The game will search for the configuration file in the following locations
 (in this order):
 
 -   current working directory
+
 -   home directory
+
 -   directory specified by TWN_SOLITAIRE_CONF_DIR environment
     variable
 
