@@ -16,7 +16,7 @@ setup(
     version='0.1.0',
     packages=['twnsol', ],
     package_dir={'twnsol': 'twnsol'},
-    package_data={'': ['LICENSE', 'assets/Jellee-Roman/*.txt'],
+    package_data={'': ['COPYING', 'assets/Jellee-Roman/*.txt'],
                   'twnsol': ['assets/Jellee-Roman/Jellee-Roman.otf']},
     scripts=['solitaire.py', ],
     url='https://github.com/geckon/2-n_solitaire',
