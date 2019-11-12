@@ -22,6 +22,7 @@ These functions are implemented:
 
 import logging
 import random
+import sys
 
 import pygame
 
@@ -236,7 +237,7 @@ class Game:
             # pylint: disable=no-member
             # (false positive; pygame has QUIT - see issue #26)
             if event.type == pygame.QUIT:
-                exit()
+                sys.exit()
 
     def check_game_over(self):
         """Check whether the game is over.
@@ -368,7 +369,7 @@ class Game:
             # pylint: disable=no-member
             # (false positive; pygame has QUIT, KEYDOWN - see issue #26)
             if event.type == pygame.QUIT:
-                exit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 self.process_key(event)
