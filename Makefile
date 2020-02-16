@@ -10,15 +10,15 @@ init:
 	poetry install
 
 bandit:
-	poetry run bandit -r solitaire.py twn_solitaire
+	poetry run bandit -r twn_solitaire
 
 pycodestyle:
 	poetry run pycodestyle --exclude=venv --filename="*.py" .
 
 pylint:
-	poetry run pylint --reports=n solitaire.py twn_solitaire
+	poetry run pylint --reports=n twn_solitaire
 
 pylint-error:
-	poetry run pylint --reports=n --disable=C,R,W solitaire.py twn_solitaire
+	poetry run pylint --reports=n --disable=C,R,W twn_solitaire
 
 travis: bandit pycodestyle pylint-error

@@ -10,7 +10,7 @@
 #
 
 """
-solitaire.py
+run.py
 ------------
 
 Executable to run the game.
