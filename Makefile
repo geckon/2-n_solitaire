@@ -7,19 +7,18 @@
 #
 
 init:
-	pip install -r requirements.txt
-	pip freeze
+	poetry install
 
 bandit:
-	bandit -r solitaire.py twn_solitaire
+	poetry run bandit -r solitaire.py twn_solitaire
 
 pycodestyle:
-	pycodestyle --exclude=venv --filename="*.py" .
+	poetry run pycodestyle --exclude=venv --filename="*.py" .
 
 pylint:
-	pylint --reports=n solitaire.py twn_solitaire
+	poetry run pylint --reports=n solitaire.py twn_solitaire
 
 pylint-error:
-	pylint --reports=n --disable=C,R,W solitaire.py twn_solitaire
+	poetry run pylint --reports=n --disable=C,R,W solitaire.py twn_solitaire
 
 travis: bandit pycodestyle pylint-error
