@@ -9,7 +9,7 @@
 #
 
 """
-twnsol.game
+twn_solitaire.game
 -----------
 
 This module represents the 2^n Solitaire game.
@@ -26,8 +26,8 @@ import sys
 
 import pygame
 
-from twnsol.config import CONF
-from twnsol.constants import CONST
+from twn_solitaire.config import CONF
+from twn_solitaire.constants import CONST
 
 
 class Game:

@@ -9,7 +9,7 @@
 #
 
 """
-twnsol.constants
+twn_solitaire.constants
 ----------------
 
 This module sets constants used by 2^n Solitaire.

@@ -11,15 +11,15 @@ init:
 	pip freeze
 
 bandit:
-	bandit -r solitaire.py twnsol
+	bandit -r solitaire.py twn_solitaire
 
 pycodestyle:
 	pycodestyle --exclude=venv --filename="*.py" .
 
 pylint:
-	pylint --reports=n solitaire.py twnsol
+	pylint --reports=n solitaire.py twn_solitaire
 
 pylint-error:
-	pylint --reports=n --disable=C,R,W solitaire.py twnsol
+	pylint --reports=n --disable=C,R,W solitaire.py twn_solitaire
 
 travis: bandit pycodestyle pylint-error

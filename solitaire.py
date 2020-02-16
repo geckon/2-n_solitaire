@@ -24,9 +24,9 @@ import sys
 
 import pygame
 
-from twnsol.config import init_config
-from twnsol.constants import CONST
-from twnsol.game import Game
+from twn_solitaire.config import init_config
+from twn_solitaire.constants import CONST
+from twn_solitaire.game import Game
 
 
 def init_log(level=logging.WARNING):
