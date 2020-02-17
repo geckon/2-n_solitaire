@@ -12,6 +12,9 @@ matrix:
       dist: xenial
       sudo: true
 
+before_install:
+  - pip install poetry
+
 # command to install dependencies
 install:
   - make init

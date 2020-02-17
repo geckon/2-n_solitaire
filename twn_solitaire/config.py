@@ -9,7 +9,7 @@
 #
 
 """
-twnsol.config
+twn_solitaire.config
 -------------
 
 This module manages configuration for 2^n Solitaire.
