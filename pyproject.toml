@@ -8,7 +8,7 @@
 
 [tool.poetry]
 name = "twn-solitaire"
-version = "0.1.1"
+version = "0.2"
 description = "Generic version of 2048 Solitaire. Simple, fun and satisfying game."
 readme = "README.md"
 license = "GNU GPL v3"
