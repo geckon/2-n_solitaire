@@ -9,7 +9,7 @@
 </pre>
 
 [![Build Status](https://travis-ci.com/geckon/2-n_solitaire.svg?branch=master)](https://travis-ci.com/geckon/2-n_solitaire)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/37d712df43e44d6487bb35e015c27c47)](https://app.codacy.com/app/geckon/2-n_solitaire?utm_source=github.com&utm_medium=referral&utm_content=geckon/2-n_solitaire&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9964205ee41f4773851c879a2afbc4f4)](https://app.codacy.com/gh/geckon/2-n_solitaire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/geckon/2-n_solitaire.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/geckon/2-n_solitaire/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/geckon/2-n_solitaire.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/geckon/2-n_solitaire/context:python)
 [![Updates](https://pyup.io/repos/github/geckon/2-n_solitaire/shield.svg)](https://pyup.io/repos/github/geckon/2-n_solitaire/)
